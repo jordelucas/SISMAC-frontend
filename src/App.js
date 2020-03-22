@@ -8,7 +8,8 @@ import './globals.css'
 import './App.css'
 import './Navbar.css'
 import './Main.css'
-import './Footer.css'
+
+import Footer from './components/footer'
 
 function App() {
   return (
@@ -53,9 +54,7 @@ function App() {
         </ul>
       </main>
       
-      <footer>
-        <p>&copy; SISMAC 2020. Todos os direitos reservados</p>
-      </footer>
+      <Footer />
     
     </div>
   );
