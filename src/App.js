@@ -1,7 +1,10 @@
 import React from 'react';
 
 import './globals.css'
+import './App.css'
 import './Navbar.css'
+import './Main.css'
+import './Footer.css'
 
 function App() {
   return (
@@ -28,7 +31,7 @@ function App() {
       </main>
       
       <footer>
-        <h1>Footer</h1>
+        <p>&copy; SISMAC 2020. Todos os direitos reservados</p>
       </footer>
     </div>
   );
