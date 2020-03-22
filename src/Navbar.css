@@ -13,7 +13,7 @@ header.navbar .brand {
     font-size: 2.2rem;
 }
 
-header.navbar .user {
+header.navbar .user-info {
     display: grid;
     gap: 20px;
     grid-template-columns: 2fr 1fr;
@@ -21,11 +21,11 @@ header.navbar .user {
     text-align: right;
 }
 
-header.navbar .user .welcome small {
+header.navbar .user-info .welcome small {
     display: block;
 }
 
-header.navbar .user img {
+header.navbar .user-info img {
     width: 50px;
     height: 50px;
     border-radius: 50%;

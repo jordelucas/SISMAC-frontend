@@ -1,5 +1,9 @@
 import React from 'react';
 
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+
 import './globals.css'
 import './App.css'
 import './Navbar.css'
@@ -13,10 +17,10 @@ function App() {
       <header className="navbar">
         <span className="brand">SISMAC</span>
         
-        <div className="user">
+        <div className="user-info">
           <div className="welcome">
             <small>Bem-vindo(a)</small>
-            <strong>Usuário</strong>
+            <strong>Jordevá L.</strong>
           </div>
         
           <img 
@@ -27,12 +31,32 @@ function App() {
       </header>
       
       <main>
-        <h1>Main</h1>
+        <ul className="options">
+          <li>
+            <button>
+              <EventNoteIcon style={{ fontSize: 50 }}/>
+              <span>Agendamentos</span>
+            </button>
+          </li>
+          <li>
+            <button>
+              <LocalHospitalIcon style={{ fontSize: 50 }}/>
+              <span>Consultas e procedimentos</span>
+            </button>
+          </li>
+          <li>
+            <button>
+              <PeopleAltIcon style={{ fontSize: 50 }}/>
+              <span>Usuários</span>
+            </button>
+          </li>
+        </ul>
       </main>
       
       <footer>
         <p>&copy; SISMAC 2020. Todos os direitos reservados</p>
       </footer>
+    
     </div>
   );
 }
