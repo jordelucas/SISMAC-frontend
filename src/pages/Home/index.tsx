@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import { 
+  EventNote, 
+  LocalHospital, 
+  PeopleAlt } from '@material-ui/icons/';
 
 import { Container, List, Item } from './styles';
 
@@ -14,19 +15,19 @@ const Home: React.FC = () => {
       <List>
         <Item>
           <Link to="/">
-            <EventNoteIcon style={{ fontSize: 50 }}/>
+            <EventNote style={{ fontSize: 50 }}/>
             <span>Agendamentos</span>
           </Link>
         </Item>
         <Item>
           <Link to="/">
-            <LocalHospitalIcon style={{ fontSize: 50 }}/>
+            <LocalHospital style={{ fontSize: 50 }}/>
             <span>Consultas e procedimentos</span>
           </Link>
         </Item>
         <Item>
           <Link to="/users">
-            <PeopleAltIcon style={{ fontSize: 50 }}/>
+            <PeopleAlt style={{ fontSize: 50 }}/>
             <span>Pacientes</span>
           </Link>
         </Item>

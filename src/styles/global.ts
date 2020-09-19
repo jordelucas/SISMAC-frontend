@@ -25,6 +25,10 @@ const GlobalStyle = createGlobalStyle`
     body, input, button {
         font-family: 'Roboto', sans-serif;
     }
+
+    table {
+        border-collapse: collapse;
+    }
 `
 
 export default GlobalStyle;
