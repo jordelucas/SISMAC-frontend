@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components'
 
 interface ButtonProps {
-  children: JSX.Element;
+  text: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children }) => {
+const Button: React.FC<ButtonProps> = ({ text }) => {
   return (
-    <StyleButton>{children}</StyleButton>
+    <StyleButton>{text}</StyleButton>
   );
 }
 

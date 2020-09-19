@@ -1,20 +1,6 @@
 import styled, { css } from 'styled-components';
-import Button from '../../components/Button';
 
 import { ArrowForward } from '@material-ui/icons';
-
-export const Wrapper = styled.div`  
-  width: 100%;
-  max-width: 992px;
-  margin: 50px auto;
-  padding: 30px;
-
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 15px;
-  background: #fff;
-`;
 
 export const Header = styled.header`  
   display: flex;
