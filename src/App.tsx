@@ -3,9 +3,8 @@ import React from 'react';
 import './App.css'
 
 import GlobalStyle from './styles/global'
-import Navbar from './components/navbar'
-import Main from './components/main'
-import Footer from './components/footer'
+
+import Routes from './routes'
 
 const App: React.FC = () => {
   return (
@@ -13,9 +12,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       
       <div id="app">
-        <Navbar />
-        <Main />
-        <Footer />
+        <Routes />
       </div>
     </>
   );

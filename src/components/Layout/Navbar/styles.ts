@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledNavbar = styled.header`
+export const StyledNavbar = styled.header`
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -32,5 +32,3 @@ const StyledNavbar = styled.header`
         }
     }
 `
-
-export default StyledNavbar;
