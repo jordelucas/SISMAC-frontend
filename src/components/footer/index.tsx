@@ -7,7 +7,7 @@ const StyledFooter = styled.footer`
     border-top: 1px solid #333;
 `
 
-function Footer() {
+const Footer: React.FC = () => {
     return (
         <StyledFooter>
             <p>&copy; SISMAC 2020. Todos os direitos reservados</p>

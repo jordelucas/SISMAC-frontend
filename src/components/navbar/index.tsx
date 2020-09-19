@@ -1,8 +1,8 @@
 import React from 'react'
 
-import StyledNavbar from './styled'
+import StyledNavbar from './styles'
 
-function Navbar() {
+const Navbar: React.FC = () => {
     return (
         <StyledNavbar>
             <span className="brand">SISMAC</span>

@@ -4,9 +4,9 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
-import StyledMain from './styled'
+import StyledMain from './styles'
 
-function Main() {
+const Main: React.FC = () => {
     return (
         <StyledMain>
             <ul>
