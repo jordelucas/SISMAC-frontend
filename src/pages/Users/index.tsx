@@ -7,12 +7,10 @@ import Wrapper from '../../components/Layout/Wrapper';
 import BackButton from '../../components/BackButton';
 import Title from '../../components/Title';
 import Filter from '../../components/Filter';
+import { Table, TableBody, TableHead } from '../../components/Table';
 
 import {
   Header,
-  Table,
-  TableHead,
-  TableBody,
   ArrowForwardIcon } from './styles';
 
 const Users: React.FC = () => {
@@ -43,7 +41,7 @@ const Users: React.FC = () => {
                 <td>JORDEVA LUCAS</td>
                 <td>111.111.111-11</td>
                 <td>111</td>
-                <td><ArrowForwardIcon /></td>
+                <td><Link to="users/1"><ArrowForwardIcon /></Link></td>
               </tr>
             </TableBody>
           </Table>

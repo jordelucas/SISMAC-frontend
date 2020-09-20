@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import Main from './pages/Home'
 import Users from './pages/Users'
 import NewUser from './pages/Users/Cadastrar'
+import User from './pages/Users/Visualizar'
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
           <Route component={Main} path="/" exact/>
           <Route component={Users} path="/users" exact/>
           <Route component={NewUser} path="/users/new" exact/>
+          <Route component={User} path="/users/1" exact/>
         </>
       </Layout>
     </BrowserRouter>
