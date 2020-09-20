@@ -1,17 +1,6 @@
-import React from 'react';
 import styled from 'styled-components'
 
-interface ButtonProps {
-  text: string;
-}
-
-const Button: React.FC<ButtonProps> = ({ text }) => {
-  return (
-    <StyleButton>{text}</StyleButton>
-  );
-}
-
-const StyleButton = styled.button`
+export const Button = styled.button`
   color: #fff;
   font-size: 12px;
   background: #019637;
@@ -27,5 +16,3 @@ const StyleButton = styled.button`
     opacity: 0.7;
   }
 `
-
-export default Button;

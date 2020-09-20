@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
+
+import { useHistory } from 'react-router-dom';
+
+import api from '../../../services/api';
 
 import Content from '../../../components/Layout/Content';
 import Wrapper from '../../../components/Layout/Wrapper';
 import BackButton from '../../../components/BackButton';
 import Title from '../../../components/Title';
-import Button from '../../../components/Button';
+import { Button } from '../../../components/Button';
 import Input from '../../../components/Input';
 
 import { 
@@ -13,6 +17,39 @@ import {
   Grid} from './styles';
 
 const NewUser: React.FC = () => {
+  const history = useHistory();
+
+  const [nome, setNome] = useState('')
+  const [dtNascimento, setDtNascimento] = useState('')
+  const [cpf, setCpf] = useState('')
+  const [nsus, setNsus] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+
+  function handleCreateUser(e: FormEvent) {
+    e.preventDefault();
+
+    api.post('users', {
+      nome,
+      dtNascimento,
+      cpf,
+      nsus,
+      telefone,
+      cidade,
+      bairro,
+      numero,
+      complemento,
+    }).then(() => {
+      alert('Cadastro realizado com sucesso!')
+      history.push('/')
+    }).catch(() => {
+      alert('Erro no cadastro!')
+    })
+  }
+
   return (
     <Content>
       <Wrapper>
@@ -20,14 +57,15 @@ const NewUser: React.FC = () => {
           <BackButton link="/users"/>
           <Title text="Novo paciente" />
 
-          <Form>
+          <Form onSubmit={handleCreateUser}>
             <Grid>
               <FormGroup gridArea='NM'>
                 <Input 
                   type="text"
                   label="Nome"
                   identifier="nome"
-                  value=''
+                  value={nome}
+                  onChange={setNome}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='NC'>
@@ -35,7 +73,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Data e nascimento" 
                   identifier="dtNascimento"
-                  value=''
+                  value={dtNascimento}
+                  onChange={setDtNascimento}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='CP'>
@@ -43,7 +82,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="CPF"
                   identifier="CPF"
-                  value=''
+                  value={cpf}
+                  onChange={setCpf}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='SU'>
@@ -51,7 +91,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="nSUS"
                   identifier="nSUS"
-                  value=''
+                  value={nsus}
+                  onChange={setNsus}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='FN'>
@@ -59,7 +100,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Telefone"
                   identifier="telefone"
-                  value=''
+                  value={telefone}
+                  onChange={setTelefone}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='CD'>
@@ -67,7 +109,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Cidade"
                   identifier="cidade"
-                  value=''
+                  value={cidade}
+                  onChange={setCidade}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='BR'>
@@ -75,7 +118,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Bairro"
                   identifier="bairro"
-                  value=''
+                  value={bairro}
+                  onChange={setBairro}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='NU'>
@@ -83,7 +127,8 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Número"
                   identifier="numero"
-                  value=''
+                  value={numero}
+                  onChange={setNumero}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='CO'>
@@ -91,12 +136,13 @@ const NewUser: React.FC = () => {
                   type="text"
                   label="Complemento"
                   identifier="complemento"
-                  value=''
+                  value={complemento}
+                  onChange={setComplemento}
                   disabled={false}/>
               </FormGroup>
             </Grid>
 
-            <Button text="Salvar"/>
+            <Button type="submit">Salvar</Button>
           </Form>
         </>
       </Wrapper>

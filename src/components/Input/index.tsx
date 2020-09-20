@@ -7,13 +7,28 @@ interface InputProps {
   identifier: string;
   value: string;
   disabled: boolean;
+  onChange: Function;
 }
 
-const Input: React.FC<InputProps> = ({ type, label, identifier, value, disabled }) => {
+const Input: React.FC<InputProps> = ({ 
+  type, 
+  label, 
+  identifier, 
+  value, 
+  disabled, 
+  onChange 
+}) => {
   return (
     <>
       <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
-      <StyledInput type={type} name={label} value={value} id={identifier} disabled={disabled}/>
+      <StyledInput 
+        id={identifier} 
+        type={type} 
+        name={label} 
+        value={value} 
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+      />
     </>
   );
 }
