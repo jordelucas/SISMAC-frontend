@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { ArrowDropDown, Close } from '@material-ui/icons';
+import { ArrowDropDown, Close, Search as SearchMaterialIcon } from '@material-ui/icons';
 
 interface DropdownProps {
   isOpen: Boolean;
@@ -23,7 +23,7 @@ export const Container = styled.div`
   }
 `
 
-export const Filtro = styled.div`
+export const Search = styled.div`
   position: relative;
   border: 1px solid #000;
 
@@ -79,6 +79,7 @@ export const DropdownFilter = styled.ul<DropdownProps>`
   background: #fff;
   z-index: 100;
 `
+
 export const Option = styled.li`
   line-height: 40px;
   font-size: 14px;
@@ -92,3 +93,23 @@ export const Option = styled.li`
     opacity: 0.7;
   }
 `
+
+export const ButtonSearch = styled.button`
+  width: 35px;
+  height: 35px;
+  margin-left: 15px;
+  background: #fafafa;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: background 0.3s, opacity 0.3s;
+
+  &:hover {
+    background: #E5E6F0;
+    opacity: 0.7;
+  }
+`
+
+export const SearchIcon = styled(SearchMaterialIcon)`${IconCSS}`
