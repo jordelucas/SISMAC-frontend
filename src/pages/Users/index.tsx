@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,25 @@ import {
   Header,
   ArrowForwardIcon } from './styles';
 
-const Users: React.FC = () => {
+interface Patient {
+  nome: string;
+  carteiraSUS: string;
+  cpf: string;
+  cidade: string;
+  bairro: string;
+  complemento: string;
+  dataNascimento: string;
+  telefone: string;
+  numero: string;
+}
+
+const Users: React.FC<Patient> = () => {
+  const [filteredPatients, setFilteredPatients] = useState<Patient[]>([])
+
+  function handleFilteredPatients(filteredPatients: Array<Patient>) {
+    setFilteredPatients(filteredPatients);
+  }
+
   return (
     <Content>
       <Wrapper>
@@ -25,7 +43,7 @@ const Users: React.FC = () => {
             <Link to="/users/new">Adicionar paciente</Link>
           </Header>
 
-          <Filter />
+          <Filter patientsFiltered={handleFilteredPatients}/>
 
           <Table>
             <TableHead>
@@ -37,12 +55,21 @@ const Users: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td>JORDEVA LUCAS</td>
-                <td>111.111.111-11</td>
-                <td>111</td>
-                <td><Link to="users/1"><ArrowForwardIcon /></Link></td>
-              </tr>
+              {filteredPatients.map((patient: Patient, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{patient.nome}</td>
+                    <td>{patient.cpf}</td>
+                    <td>{patient.carteiraSUS}</td>
+                    <td><Link to={{
+                      pathname: `users/${index}`,
+                      state: {
+                        id: patient.cpf
+                      }
+                    }}><ArrowForwardIcon /></Link></td>
+                  </tr>
+                )
+              })}
             </TableBody>
           </Table>
         </>
