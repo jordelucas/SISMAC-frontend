@@ -32,16 +32,16 @@ const NewUser: React.FC = () => {
   function handleCreateUser(e: FormEvent) {
     e.preventDefault();
 
-    api.post('users', {
+    api.post('pacientes', {
       nome,
-      dtNascimento,
+      carteiraSUS: nsus,
       cpf,
-      nsus,
-      telefone,
       cidade,
       bairro,
       numero,
       complemento,
+      dataNascimento: dtNascimento,
+      telefone,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       history.push('/')
