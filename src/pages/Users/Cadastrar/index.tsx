@@ -9,6 +9,8 @@ import Title from '../../../components/Title';
 import { Button } from '../../../components/Button';
 import Input from '../../../components/Input';
 
+import { cpfMask, phoneMask } from '../../../utils/Masks'
+
 import { 
   Form, 
   FormGroup, 
@@ -78,7 +80,7 @@ const NewUser: React.FC = () => {
               </FormGroup>
               <FormGroup gridArea='NC'>
                 <Input 
-                  type="text"
+                  type="date"
                   label="Data e nascimento" 
                   identifier="dtNascimento"
                   value={dtNascimento}
@@ -92,6 +94,7 @@ const NewUser: React.FC = () => {
                   identifier="CPF"
                   value={cpf}
                   onChange={setCpf}
+                  mask={cpfMask}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='SU'>
@@ -110,6 +113,7 @@ const NewUser: React.FC = () => {
                   identifier="telefone"
                   value={telefone}
                   onChange={setTelefone}
+                  mask={phoneMask}
                   disabled={false}/>
               </FormGroup>
               <FormGroup gridArea='CD'>
@@ -132,7 +136,7 @@ const NewUser: React.FC = () => {
               </FormGroup>
               <FormGroup gridArea='NU'>
                 <Input 
-                  type="text"
+                  type="number"
                   label="Número"
                   identifier="numero"
                   value={numero}

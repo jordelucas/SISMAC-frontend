@@ -9,6 +9,7 @@ import BackButton from '../../../components/BackButton';
 import { Button } from '../../../components/Button';
 import Input from '../../../components/Input';
 import { Table, TableBody, TableHead } from '../../../components/Table';
+import { cpfMask, phoneMask } from '../../../utils/Masks';
 
 import {
   Header, 
@@ -66,13 +67,15 @@ const User: React.FC = () => {
         nome: patientNome,
         cpf: patientCpf,
         carteiraSUS: patientNsus,
-        dataNascimento: patientDtNascimento,
+        dataNascimento,
         telefone: patientTelefone,
         cidade: patientCidade,
         bairro: patientBairro,
         numero: patientNumero,
         complemento: patientComplemento,
        } = response.data.content[0];
+
+       const patientDtNascimento = dataNascimento.split('/').reverse().join('-')
 
        setNome(patientNome)
        setDtNascimento(patientDtNascimento)
@@ -135,7 +138,7 @@ const User: React.FC = () => {
               </FormGroup>
               <FormGroup gridArea='NC'>
                 <Input 
-                  type="text"
+                  type="date"
                   label="Data de nascimento" 
                   identifier="dtNascimento"
                   value={dtNascimento}
@@ -149,6 +152,7 @@ const User: React.FC = () => {
                   identifier="CPF"
                   value={cpf}
                   onChange={setCpf}
+                  mask={cpfMask}
                   disabled={isEditDisabled}/>
               </FormGroup>
               <FormGroup gridArea='SU'>
@@ -167,6 +171,7 @@ const User: React.FC = () => {
                   identifier="telefone"
                   value={telefone}
                   onChange={setTelefone}
+                  mask={phoneMask}
                   disabled={isEditDisabled}/>
               </FormGroup>
               <FormGroup gridArea='CD'>
@@ -189,7 +194,7 @@ const User: React.FC = () => {
               </FormGroup>
               <FormGroup gridArea='NU'>
                 <Input 
-                  type="text"
+                  type="number"
                   label="Número"
                   identifier="numero"
                   value={numero}

@@ -7,6 +7,7 @@ interface InputProps {
   identifier: string;
   value: string;
   disabled: boolean;
+  mask?: Function;
   onChange: Function;
 }
 
@@ -16,8 +17,17 @@ const Input: React.FC<InputProps> = ({
   identifier, 
   value, 
   disabled, 
+  mask,
   onChange 
 }) => {
+  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (mask) {
+      onChange(mask(e.target.value))
+    } else {
+      onChange(e.target.value)
+    }
+  }
   return (
     <>
       <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
@@ -26,7 +36,7 @@ const Input: React.FC<InputProps> = ({
         type={type} 
         name={label} 
         value={value} 
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         disabled={disabled}
       />
     </>
