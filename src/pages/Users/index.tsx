@@ -61,12 +61,16 @@ const Users: React.FC<Patient> = () => {
                     <td>{patient.nome}</td>
                     <td>{patient.cpf}</td>
                     <td>{patient.carteiraSUS}</td>
-                    <td><Link to={{
-                      pathname: `users/${index}`,
-                      state: {
-                        id: patient.cpf
-                      }
-                    }}><ArrowForwardIcon /></Link></td>
+                    <td>
+                      <Link to={{
+                        pathname: `user/${index}`,
+                        state: {
+                          id: patient.cpf
+                        }
+                      }}>
+                        <ArrowForwardIcon />
+                      </Link>
+                    </td>
                   </tr>
                 )
               })}

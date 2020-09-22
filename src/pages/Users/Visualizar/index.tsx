@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 import Content from '../../../components/Layout/Content';
 import Wrapper from '../../../components/Layout/Wrapper';
@@ -6,30 +8,87 @@ import Title from '../../../components/Title';
 import BackButton from '../../../components/BackButton';
 import { Button } from '../../../components/Button';
 import Input from '../../../components/Input';
+import { Table, TableBody, TableHead } from '../../../components/Table';
 
 import {
   Header, 
   Form, 
   FormGroup, 
   Grid } from './styles';
-import { Table, TableBody, TableHead } from '../../../components/Table';
+import api from '../../../services/api';
+
+interface LocationState {
+  id: {
+    pathname: string;
+  };
+}
+
+interface Patient {
+  content: Array<Details>
+}
+
+interface Details {
+  nome: string;
+  carteiraSUS: string;
+  cpf: string;
+  cidade: string;
+  bairro: string;
+  complemento: string;
+  dataNascimento: string;
+  telefone: string;
+  numero: string;
+}
 
 const User: React.FC = () => {
-  const [isEditDisabled, setIsEditDisabled] = useState(true)
-  const [nome, setNome] = useState('Jordevá Lucas Santos da Silva')
-  const [dtNascimento, setDtNascimento] = useState('29/12/1992')
-  const [cpf, setCpf] = useState('104.225.784-10')
-  const [nsus, setNsus] = useState('123654')
-  const [telefone, setTelefone] = useState('(84) 9 9185-0456')
-  const [cidade, setCidade] = useState('Canguaretama')
-  const [bairro, setBairro] = useState('Piquiri')
-  const [numero, setNumero] = useState('03')
-  const [complemento, setComplemento] = useState('Próximo a piscina')
+  const { state: patientId } = useLocation<LocationState>();
 
+  const [isEditDisabled, setIsEditDisabled] = useState(true)
+
+  const [nome, setNome] = useState('')
+  const [dtNascimento, setDtNascimento] = useState('')
+  const [cpf, setCpf] = useState('')
+  const [nsus, setNsus] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+  
+  const { id } = patientId || { id: { pathname: "/" } };
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
   }
+
+  useEffect(() => {
+    api.get<Patient>('pacientes', {
+      params: {
+        cpf: id
+      }
+    }).then((response) => {
+      const { 
+        nome: patientNome,
+        cpf: patientCpf,
+        carteiraSUS: patientNsus,
+        dataNascimento: patientDtNascimento,
+        telefone: patientTelefone,
+        cidade: patientCidade,
+        bairro: patientBairro,
+        numero: patientNumero,
+        complemento: patientComplemento,
+       } = response.data.content[0];
+
+       setNome(patientNome)
+       setDtNascimento(patientDtNascimento)
+       setCpf(patientCpf)
+       setNsus(patientNsus)
+       setTelefone(patientTelefone)
+       setCidade(patientCidade)
+       setBairro(patientBairro)
+       setNumero(patientNumero)
+       setComplemento(patientComplemento)
+    }) 
+  }, [id])
 
   return (
     <Content>

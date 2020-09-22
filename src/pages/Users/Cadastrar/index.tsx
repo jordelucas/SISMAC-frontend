@@ -1,7 +1,5 @@
 import React, { FormEvent, useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
-
 import api from '../../../services/api';
 
 import Content from '../../../components/Layout/Content';
@@ -17,8 +15,6 @@ import {
   Grid} from './styles';
 
 const NewUser: React.FC = () => {
-  const history = useHistory();
-
   const [nome, setNome] = useState('')
   const [dtNascimento, setDtNascimento] = useState('')
   const [cpf, setCpf] = useState('')
@@ -44,10 +40,22 @@ const NewUser: React.FC = () => {
       telefone,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
-      history.push('/')
+      clearStates();
     }).catch(() => {
       alert('Erro no cadastro!')
     })
+  }
+
+  function clearStates(){
+    setNome('')
+    setDtNascimento('')
+    setCpf('')
+    setNsus('')
+    setTelefone('')
+    setCidade('')
+    setBairro('')
+    setNumero('')
+    setComplemento('')
   }
 
   return (
