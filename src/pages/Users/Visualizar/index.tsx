@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
@@ -56,10 +56,6 @@ const User: React.FC = () => {
   
   const { id } = patientId || { id: { pathname: "/" } };
 
-  function changeDisable() {
-    setIsEditDisabled(prevState => !prevState)
-  }
-
   useEffect(() => {
     api.get<Patient>('pacientes', {
       params: {
@@ -90,6 +86,31 @@ const User: React.FC = () => {
     }) 
   }, [id])
 
+  function changeDisable() {
+    setIsEditDisabled(prevState => !prevState)
+  }
+
+  function handleUpdateUser(e: FormEvent) {
+    e.preventDefault();
+
+    api.put('pacientes/atualizarCadastro', {
+      nome,
+      carteiraSUS: nsus,
+      cpf,
+      cidade,
+      bairro,
+      numero,
+      complemento,
+      dataNascimento: dtNascimento,
+      telefone,
+    }).then(() => {
+      setIsEditDisabled(prevState => !prevState)
+      alert('Cadastro atualizado com sucesso!')
+    }).catch(() => {
+      alert('Erro na atualização do cadastro!')
+    })
+  }
+
   return (
     <Content>
       <Wrapper>
@@ -101,7 +122,7 @@ const User: React.FC = () => {
             <button onClick={changeDisable} disabled={!isEditDisabled}>Editar</button>
           </Header>
 
-          <Form>
+          <Form onSubmit={handleUpdateUser}>
             <Grid>
               <FormGroup gridArea='NM'>
                 <Input 
@@ -186,7 +207,7 @@ const User: React.FC = () => {
               </FormGroup>
             </Grid>
 
-            {!isEditDisabled && <Button>Salvar alterações</Button>}
+            {!isEditDisabled && <Button type="submit">Salvar alterações</Button>}
           </Form>
 
           <Title text="Agendamentos" />
