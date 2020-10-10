@@ -20,9 +20,9 @@ const Home: React.FC = () => {
           </Link>
         </Item>
         <Item>
-          <Link to="/">
+          <Link to="/management">
             <LocalHospital style={{ fontSize: 50 }}/>
-            <span>Consultas e procedimentos</span>
+            <span>Consultas e exames</span>
           </Link>
         </Item>
         <Item>

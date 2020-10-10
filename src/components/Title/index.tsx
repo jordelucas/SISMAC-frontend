@@ -5,16 +5,22 @@ import styled from 'styled-components';
 
 interface TitleProps {
   text: string;
+  align?: string;
 }
 
-const Title: React.FC<TitleProps> = ({ text }) => {
+interface StyledTitleProps {
+  align?: string;
+}
+
+const Title: React.FC<TitleProps> = ({ text, align }) => {
   return (
-    <StyledTitle>{text}</StyledTitle>
+    <StyledTitle align={align}>{text}</StyledTitle>
   );
 }
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h1<StyledTitleProps>`
   font-size: 28px;
+  text-align: ${props => props.align ? props.align : ''};
   color: #6b6b6b;
 `
 
