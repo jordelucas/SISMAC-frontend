@@ -4,11 +4,12 @@ import { Route, BrowserRouter } from 'react-router-dom'
 import Layout from './components/Layout'
 
 import Main from './pages/Home'
-import Management from './pages/Management'
-import Specialty from './pages/Management/Specialty'
 import Users from './pages/Users'
 import NewUser from './pages/Users/Cadastrar'
 import User from './pages/Users/Visualizar'
+import Management from './pages/Management'
+import Specialty from './pages/Management/Specialty'
+import Exam from './pages/Management/Exam'
 
 const Routes = () => {
   return (
@@ -21,6 +22,7 @@ const Routes = () => {
           <Route component={User} path="/user/:id" exact/>
           <Route component={Management} path="/management" exact/>
           <Route component={Specialty} path="/specialty" exact/>
+          <Route component={Exam} path="/exam" exact/>
         </>
       </Layout>
     </BrowserRouter>
