@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BackButton from '../../../components/BackButton';
-import Content from '../../../components/Layout/Content';
-import Header from '../../../components/Layout/Header';
-import Wrapper from '../../../components/Layout/Wrapper';
-import { Table, TableBody, TableHead } from '../../../components/Table';
-import Title from '../../../components/Title';
+import BackButton from '../../../../components/BackButton';
+import Content from '../../../../components/Layout/Content';
+import Header from '../../../../components/Layout/Header';
+import Wrapper from '../../../../components/Layout/Wrapper';
+import { Table, TableBody, TableHead } from '../../../../components/Table';
+import Title from '../../../../components/Title';
 import { ArrowForwardIcon } from './styles';
 
 const Exam: React.FC = () => {
@@ -17,7 +17,7 @@ const Exam: React.FC = () => {
 
           <Header>
             <Title text="Gerenciamento de exames" />
-            <Link to="/users/new">Adicionar exame</Link>
+            <Link to="exam/new">Adicionar exame</Link>
           </Header>
 
           <Table>

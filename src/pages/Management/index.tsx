@@ -18,12 +18,12 @@ const Management: React.FC = () => {
 
           <List>
             <Item>
-              <Link to="/specialty">
+              <Link to="/management/specialty">
                 <span>Especialidades</span>
               </Link>
             </Item>
             <Item>
-              <Link to="/exam">
+              <Link to="/management/exam">
                 <span>Exames</span>
               </Link>
             </Item>

@@ -5,11 +5,13 @@ import Layout from './components/Layout'
 
 import Main from './pages/Home'
 import Users from './pages/Users'
-import NewUser from './pages/Users/Cadastrar'
-import User from './pages/Users/Visualizar'
+import NewUser from './pages/Users/New'
+import User from './pages/Users/View'
 import Management from './pages/Management'
-import Specialty from './pages/Management/Specialty'
-import Exam from './pages/Management/Exam'
+import Specialty from './pages/Management/Specialty/List'
+import Exam from './pages/Management/Exam/List'
+import NewExam from './pages/Management/Exam/New'
+import NewSpecialty from './pages/Management/Specialty/New'
 
 const Routes = () => {
   return (
@@ -21,8 +23,10 @@ const Routes = () => {
           <Route component={NewUser} path="/users/new" exact/>
           <Route component={User} path="/user/:id" exact/>
           <Route component={Management} path="/management" exact/>
-          <Route component={Specialty} path="/specialty" exact/>
-          <Route component={Exam} path="/exam" exact/>
+          <Route component={Specialty} path="/management/specialty" exact/>
+          <Route component={NewSpecialty} path="/management/specialty/new" exact/>
+          <Route component={Exam} path="/management/exam" exact/>
+          <Route component={NewExam} path="/management/exam/new" exact/>
         </>
       </Layout>
     </BrowserRouter>
