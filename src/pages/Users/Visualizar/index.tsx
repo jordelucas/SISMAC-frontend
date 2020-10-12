@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import Content from '../../../components/Layout/Content';
 import Wrapper from '../../../components/Layout/Wrapper';
+import Header from '../../../components/Layout/Header';
 import Title from '../../../components/Title';
 import BackButton from '../../../components/BackButton';
 import { Button } from '../../../components/Button';
@@ -12,7 +13,6 @@ import { Table, TableBody, TableHead } from '../../../components/Table';
 import { cpfMask, phoneMask } from '../../../utils/Masks';
 
 import {
-  Header, 
   Form, 
   FormGroup, 
   Grid } from './styles';

@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 
 import Content from '../../components/Layout/Content';
 import Wrapper from '../../components/Layout/Wrapper';
-import BackButton from '../../components/BackButton';
+import Header from '../../components/Layout/Header';
 import Title from '../../components/Title';
+import BackButton from '../../components/BackButton';
 import Filter from '../../components/Filter';
 import { Table, TableBody, TableHead } from '../../components/Table';
 
-import {
-  Header,
-  ArrowForwardIcon } from './styles';
+import { ArrowForwardIcon } from './styles';
 
 interface Patient {
   nome: string;

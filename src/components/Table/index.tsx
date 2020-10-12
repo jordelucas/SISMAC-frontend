@@ -26,6 +26,7 @@ export const TableBody = styled.tbody`
     td {
       text-align: left;
       padding-left: 15px; 
+      padding-right: 15px; 
       font-weight: bold;
     }
   }

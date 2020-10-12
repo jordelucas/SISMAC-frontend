@@ -14,36 +14,6 @@ interface FormGroupProps {
 // CO -> Complemento 
 // VZ -> Espaço em branco';
 
-export const Header = styled.header`  
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  > button {
-    color: #103a53;
-    font-size: 12px;
-    background: #fff;
-    padding: 15px 20px;
-    border: none;
-    border: 1px solid #103a53;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-    cursor: pointer;
-
-    &:hover, &:disabled {
-      color: #fff;
-      background: #103a53;
-    }
-
-    &:disabled {
-      opacity: 0.7;
-      cursor: no-drop;
-    }
-
-  }
-`;
-
 export const Form = styled.form`
   margin: 25px;
 `;
