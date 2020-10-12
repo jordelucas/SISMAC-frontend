@@ -14,7 +14,8 @@ import { cpfMask, phoneMask } from '../../../utils/Masks'
 import { 
   Form, 
   FormGroup, 
-  Grid} from './styles';
+  Grid
+} from './styles';
 
 const NewUser: React.FC = () => {
   const [nome, setNome] = useState('')

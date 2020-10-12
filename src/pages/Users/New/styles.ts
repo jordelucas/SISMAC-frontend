@@ -38,25 +38,4 @@ export const FormGroup = styled.div<FormGroupProps>`
   grid-area: ${props => props.gridArea};
 
   position: relative;
-
-  > label {
-    font-size: 12px;
-    position: absolute;
-    top: 8px;
-    left: 12px;
-    color: #6b6b6b;
-  }
-  
-  > input {
-    color: #103a53;
-    text-transform: uppercase;
-    border: 1px solid #E5E6F0;
-    border-radius: 5px;
-    padding: 28px 10px 10px 10px;
-    transition: border-color 0.3s;
-     
-    &:hover, &:focus {
-      border-color: #103a53;
-    }
-  }
 `

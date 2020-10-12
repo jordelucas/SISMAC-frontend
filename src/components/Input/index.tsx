@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components'
+import { ToggleOff, ToggleOn } from '@material-ui/icons/';
 
 interface InputProps {
   type: string;
   label: string;
   identifier: string;
-  value: string;
+  value?: string;
+  checked?: boolean;
   disabled: boolean;
   mask?: Function;
   onChange: Function;
@@ -18,27 +20,40 @@ const Input: React.FC<InputProps> = ({
   value, 
   disabled, 
   mask,
-  onChange 
+  onChange,
+  checked,
 }) => {
   
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChangeText(e: React.ChangeEvent<HTMLInputElement>) {
     if (mask) {
       onChange(mask(e.target.value))
     } else {
       onChange(e.target.value)
     }
   }
+
   return (
     <>
-      <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
-      <StyledInput 
-        id={identifier} 
-        type={type} 
-        name={label} 
-        value={value} 
-        onChange={handleChange}
-        disabled={disabled}
-      />
+      {type === 'text' && (
+        <>
+          <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
+          <StyledInput 
+            id={identifier} 
+            type={type} 
+            name={label} 
+            value={value} 
+            onChange={handleChangeText}
+            disabled={disabled}
+          />
+        </>
+      )}
+
+      {type === 'radio' && (
+        <>
+          <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
+          {checked ? <ToggleOn onClick={() => onChange(!checked)} /> : <ToggleOff onClick={() => onChange(!checked)} />}
+        </>
+      )}
     </>
   );
 }
