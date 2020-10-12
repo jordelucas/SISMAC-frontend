@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../../../../components/BackButton';
 import Content from '../../../../components/Layout/Content';
@@ -6,9 +6,26 @@ import Header from '../../../../components/Layout/Header';
 import Wrapper from '../../../../components/Layout/Wrapper';
 import { Table, TableBody, TableHead } from '../../../../components/Table';
 import Title from '../../../../components/Title';
+import api from '../../../../services/api';
 import { ArrowForwardIcon } from './styles';
 
+interface ExamsProps {
+  id: number;
+  nomeExame: string
+}
+
 const Exam: React.FC = () => {
+  const [exams, setExams] = useState<ExamsProps[]>()
+
+  useEffect(() => {
+    async function loadAllExams() {
+      const response = await api.get('exames');
+      setExams(response.data.content)
+    }
+
+    loadAllExams();
+  }, [])
+
   return (
     <Content>
       <Wrapper>
@@ -28,38 +45,20 @@ const Exam: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td style={{ width: '100%' }}>Eletrocardiograma</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Endoscopia digestiva alta</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Espermograma</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Mamograma</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
+              {exams?.map(exam => {
+                return (
+                  <tr key={exam.id}>
+                    <td style={{ width: '100%' }}>
+                      {exam.nomeExame}
+                    </td>
+                    <td>
+                      <Link to='/'>
+                        <ArrowForwardIcon />
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
             </TableBody>
           </Table>
         </>
