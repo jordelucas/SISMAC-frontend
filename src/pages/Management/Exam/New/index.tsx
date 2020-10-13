@@ -6,12 +6,14 @@ import BackButton from '../../../../components/BackButton';
 import Title from '../../../../components/Title';
 import { Button } from '../../../../components/Button';
 
+import api from '../../../../services/api';
+import Input from '../../../../components/Input';
+
 import { 
   Form,
   FormGroup,
-  Grid } from './styles';
-import api from '../../../../services/api';
-import Input from '../../../../components/Input';
+  Grid,
+} from './styles';
 
 const NewExam: React.FC = () => {
   const [nome, setNome] = useState('')
@@ -30,7 +32,6 @@ const NewExam: React.FC = () => {
       alert('Erro no cadastro!')
     })
   }
-
   
   function clearStates(){
     setNome('');

@@ -4,14 +4,6 @@ interface FormGroupProps {
   gridArea: string;
 }
 // NM -> Nome
-// NC -> Data de Nascimento
-// CP -> CPF
-// SU -> SUS
-// FN -> Telefone
-// CD -> Cidade
-// BR -> Bairro
-// NU -> Número
-// CO -> Complemento 
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
@@ -24,10 +16,7 @@ grid-template-columns: 1fr 1fr 1fr;
 gap: 20px;
 
 grid-template-areas:
-  'NM NM NC'
-  'CP SU FN'
-  'CD BR NU'
-  'CO VZ VZ'
+  'NM NM VZ'
   'NV NV BT';
 `;
 
