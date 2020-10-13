@@ -24,7 +24,7 @@ const Exam: React.FC = () => {
     }
 
     loadAllExams();
-  }, [])
+  }, []);
 
   return (
     <Content>

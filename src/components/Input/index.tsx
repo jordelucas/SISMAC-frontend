@@ -51,7 +51,10 @@ const Input: React.FC<InputProps> = ({
       {type === 'radio' && (
         <>
           <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
-          {checked ? <ToggleOn onClick={() => onChange(!checked)} /> : <ToggleOff onClick={() => onChange(!checked)} />}
+          {checked 
+            ? <ToggleOn onClick={() => onChange(!checked)} /> 
+            : <ToggleOff onClick={() => onChange(!checked)} />
+          }
         </>
       )}
     </>

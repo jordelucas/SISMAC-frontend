@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BackButton from '../../../../components/BackButton';
+
+import Wrapper from '../../../../components/Layout/Wrapper';
 import Content from '../../../../components/Layout/Content';
 import Header from '../../../../components/Layout/Header';
-import Wrapper from '../../../../components/Layout/Wrapper';
-import { Table, TableBody, TableHead } from '../../../../components/Table';
+import BackButton from '../../../../components/BackButton';
 import Title from '../../../../components/Title';
+import { Table, TableBody, TableHead } from '../../../../components/Table';
 import { ArrowForwardIcon } from './styles';
 
+import api from '../../../../services/api';
+
+interface SpecialtyProps {
+  id: number;
+  nomeEspecialidade: string
+}
+
 const Specialty: React.FC = () => {
+  const [specialties, setSpecialties] = useState<SpecialtyProps[]>()
+
+  useEffect(() => {
+    async function loadAllSpecialty() {
+      const response = await api.get('especialidades/todasEspecialidades');
+      setSpecialties(response.data)
+    }
+
+    loadAllSpecialty();
+  }, []);
+
   return (
     <Content>
       <Wrapper>
@@ -28,46 +47,18 @@ const Specialty: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td style={{ width: '100%' }}>Cardiologia</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Clínico Geral</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Ginecologia Clínica</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Hematologia</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: '100%' }}>Neurologia</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
+              {specialties?.map(specialty => {
+                return (
+                  <tr key={specialty.id}>
+                    <td style={{ width: '100%' }}>{specialty.nomeEspecialidade}</td>
+                    <td>
+                      <Link to='/'>
+                        <ArrowForwardIcon />
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
             </TableBody>
           </Table>
         </>
