@@ -11,21 +11,21 @@ import { ArrowForwardIcon } from './styles';
 
 import api from '../../../../services/api';
 
-interface SpecialtyProps {
+interface SpecialtiesProps {
   id: number;
   nomeEspecialidade: string
 }
 
-const Specialty: React.FC = () => {
-  const [specialties, setSpecialties] = useState<SpecialtyProps[]>()
+const Specialties: React.FC = () => {
+  const [specialties, setSpecialties] = useState<SpecialtiesProps[]>()
 
   useEffect(() => {
-    async function loadAllSpecialty() {
+    async function loadAllSpecialties() {
       const response = await api.get('especialidades/todasEspecialidades');
       setSpecialties(response.data)
     }
 
-    loadAllSpecialty();
+    loadAllSpecialties();
   }, []);
 
   return (
@@ -36,7 +36,7 @@ const Specialty: React.FC = () => {
 
           <Header>
             <Title text="Gerenciamento de especialidades" />
-            <Link to="specialty/new">Adicionar especialidade</Link>
+            <Link to="specialties/new">Adicionar especialidade</Link>
           </Header>
 
           <Table>
@@ -47,12 +47,17 @@ const Specialty: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {specialties?.map(specialty => {
+              {specialties?.map((specialty: SpecialtiesProps, index) => {
                 return (
                   <tr key={specialty.id}>
                     <td style={{ width: '100%' }}>{specialty.nomeEspecialidade}</td>
                     <td>
-                      <Link to='/'>
+                      <Link to={{
+                        pathname: `/management/specialty/${specialty.id}`,
+                        state: {
+                          id: specialty.id
+                        }
+                      }}>
                         <ArrowForwardIcon />
                       </Link>
                     </td>
@@ -67,4 +72,4 @@ const Specialty: React.FC = () => {
   );
 }
 
-export default Specialty;
+export default Specialties;

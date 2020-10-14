@@ -18,7 +18,7 @@ const Management: React.FC = () => {
 
           <List>
             <Item>
-              <Link to="/management/specialty">
+              <Link to="/management/specialties">
                 <span>Especialidades</span>
               </Link>
             </Item>

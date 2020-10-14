@@ -13,7 +13,7 @@ import { Table, TableBody, TableHead } from '../../components/Table';
 import { ArrowForwardIcon } from './styles';
 
 interface Patient {
-  nome: string;
+  nomePaciente: string;
   carteiraSUS: string;
   cpf: string;
   cidade: string;
@@ -57,7 +57,7 @@ const Users: React.FC<Patient> = () => {
               {filteredPatients.map((patient: Patient, index) => {
                 return (
                   <tr key={index}>
-                    <td>{patient.nome}</td>
+                    <td>{patient.nomePaciente}</td>
                     <td>{patient.cpf}</td>
                     <td>{patient.carteiraSUS}</td>
                     <td>

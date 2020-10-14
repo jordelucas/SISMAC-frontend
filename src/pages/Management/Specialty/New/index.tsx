@@ -38,7 +38,7 @@ const NewSpecialty: React.FC = () => {
     <Content>
       <Wrapper>
         <>
-          <BackButton link="/management/specialty"/>
+          <BackButton link="/management/specialties"/>
           <Title text="Nova especialidade" />
 
           <Form onSubmit={handleCreateSpecialty}>

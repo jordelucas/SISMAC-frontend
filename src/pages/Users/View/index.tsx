@@ -29,7 +29,7 @@ interface Patient {
 }
 
 interface Details {
-  nome: string;
+  nomePaciente: string;
   carteiraSUS: string;
   cpf: string;
   cidade: string;
@@ -64,7 +64,7 @@ const User: React.FC = () => {
       }
     }).then((response) => {
       const { 
-        nome: patientNome,
+        nomePaciente: patientNome,
         cpf: patientCpf,
         carteiraSUS: patientNsus,
         dataNascimento,
@@ -97,7 +97,7 @@ const User: React.FC = () => {
     e.preventDefault();
 
     api.put('pacientes/atualizarCadastro', {
-      nome,
+      nomePaciente: nome,
       carteiraSUS: nsus,
       cpf,
       cidade,

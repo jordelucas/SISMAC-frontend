@@ -34,7 +34,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <>
-      {type === 'text' && (
+      {(type === 'text' || type === 'date' || type === 'number') && (
         <>
           <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
           <StyledInput 
