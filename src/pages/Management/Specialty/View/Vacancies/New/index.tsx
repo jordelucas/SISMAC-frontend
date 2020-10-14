@@ -27,7 +27,7 @@ interface SpecialtyProps {
   nomeEspecialidade: string;
 }
 
-const NewVacancies: React.FC = () => {
+const NewVacanciesSpecialty: React.FC = () => {
   const { state: specialtyId } = useLocation<LocationState>();
   
   const [nomeEspecialidade, setNomeEspecialidade] = useState('')
@@ -114,4 +114,4 @@ const NewVacancies: React.FC = () => {
   );
 }
 
-export default NewVacancies;
+export default NewVacanciesSpecialty;

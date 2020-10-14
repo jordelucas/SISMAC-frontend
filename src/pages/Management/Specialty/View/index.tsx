@@ -29,12 +29,24 @@ interface SpecialtyProps {
   nomeEspecialidade: string;
 }
 
+interface VacanciesProps {
+  content: Details[];
+}
+
+interface Details {
+  id: number,
+  data: string,
+  vagasOfertadas: number,
+  vagasRestantes: number,
+}
+
 const Specialty: React.FC = () => {
   const { state: specialtyId } = useLocation<LocationState>();
 
   const [isEditDisabled, setIsEditDisabled] = useState(true)
 
   const [nome, setNome] = useState('')
+  const [vacancies, setVacancies] = useState<Details[]>()
   
   const { id } = specialtyId || { id: { pathname: "/" } };
 
@@ -50,6 +62,25 @@ const Specialty: React.FC = () => {
     }) 
   }, [id])
 
+  useEffect(() => {
+    api.get<VacanciesProps>(
+      `vagas?consulta=true&especialidade_id=${id}`
+    ).then((response) => {
+      const { 
+        content: listVacancies
+      } = response.data;
+
+      const filteredVacancies = listVacancies.map(item => {
+        return {
+          ...item,
+          data: item.data.split('-').reverse().join('/')
+        }
+      })
+
+       setVacancies(filteredVacancies)
+    }) 
+  }, [id])
+
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
   }
@@ -57,7 +88,7 @@ const Specialty: React.FC = () => {
   function handleUpdateSpecialty(e: FormEvent) {
     e.preventDefault();
 
-    api.put('pacientes/atualizarCadastro', {
+    api.put(`especialidades/atualizarEspecialidade/${id}`, {
       nomeEspecialidade: nome,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)
@@ -115,24 +146,17 @@ const Specialty: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td>10/10/2020</td>
-                <td>15/30</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td>15/10/2020</td>
-                <td>13/15</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
+              {vacancies?.map(vacancy => (
+                <tr key={vacancy.id}>
+                  <td>{vacancy.data}</td>
+                  <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
+                  <td>
+                    <Link to='/'>
+                      <ArrowForwardIcon />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
             </TableBody>
           </Table>
         </>
