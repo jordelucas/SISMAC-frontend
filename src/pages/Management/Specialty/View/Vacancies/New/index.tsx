@@ -51,8 +51,10 @@ const NewVacancies: React.FC = () => {
   function handleCreateVacancy(e: FormEvent) {
     e.preventDefault();
 
+    const vacancyDate = data.split('-').reverse().join('/')
+
     api.post('vagas', {
-      data,
+      data: vacancyDate,
       vagasOfertadas: vagas,
       especialidade: id,
       exame: null,
