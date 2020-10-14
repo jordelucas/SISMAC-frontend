@@ -40,19 +40,19 @@ const Exam: React.FC = () => {
   
   const { id } = examId || { id: { pathname: "/" } };
 
-  // useEffect(() => {
-  //   api.get<ExamProps>(
-  //     `exames/${id}`
-  //   ).then((response) => {
-  //     const { 
-  //       nomeExame: examNome,
-  //       autorizacao: examAutorizacao,
-  //      } = response.data;
+  useEffect(() => {
+    api.get<ExamProps>(
+      `exames/${id}`
+    ).then((response) => {
+      const { 
+        nomeExame: examNome,
+        autorizacao: examAutorizacao,
+       } = response.data;
 
-  //      setNome(examNome)
-  //      setAuthorization(examAutorizacao)
-  //   }) 
-  // }, [id])
+       setNome(examNome)
+       setAuthorization(examAutorizacao)
+    }) 
+  }, [id])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
