@@ -61,8 +61,9 @@ const Exam: React.FC = () => {
   function handleUpdateExam(e: FormEvent) {
     e.preventDefault();
 
-    api.put('pacientes/atualizarCadastro', {
+    api.put(`exames/editarExame/${id}`, {
       nomeExame: nome,
+      autorizacao: authorization,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)
       alert('Cadastro atualizado com sucesso!')
