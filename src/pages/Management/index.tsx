@@ -23,7 +23,7 @@ const Management: React.FC = () => {
               </Link>
             </Item>
             <Item>
-              <Link to="/management/exam">
+              <Link to="/management/exams">
                 <span>Exames</span>
               </Link>
             </Item>

@@ -14,7 +14,7 @@ interface ExamsProps {
   nomeExame: string
 }
 
-const Exam: React.FC = () => {
+const Exams: React.FC = () => {
   const [exams, setExams] = useState<ExamsProps[]>()
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Exam: React.FC = () => {
 
           <Header>
             <Title text="Gerenciamento de exames" />
-            <Link to="exam/new">Adicionar exame</Link>
+            <Link to="exams/new">Adicionar exame</Link>
           </Header>
 
           <Table>
@@ -52,7 +52,12 @@ const Exam: React.FC = () => {
                       {exam.nomeExame}
                     </td>
                     <td>
-                      <Link to='/'>
+                      <Link to={{
+                        pathname: `/management/exam/${exam.id}`,
+                        state: {
+                          id: exam.id
+                        }
+                      }}>
                         <ArrowForwardIcon />
                       </Link>
                     </td>
@@ -67,4 +72,4 @@ const Exam: React.FC = () => {
   );
 }
 
-export default Exam;
+export default Exams;

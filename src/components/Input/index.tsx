@@ -52,8 +52,8 @@ const Input: React.FC<InputProps> = ({
         <>
           <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
           {checked 
-            ? <ToggleOn onClick={() => onChange(!checked)} /> 
-            : <ToggleOff onClick={() => onChange(!checked)} />
+            ? <ToggleOn onClick={() => !disabled && onChange(!checked)} /> 
+            : <ToggleOff onClick={() => !disabled && onChange(!checked)} />
           }
         </>
       )}

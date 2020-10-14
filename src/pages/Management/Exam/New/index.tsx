@@ -42,7 +42,7 @@ const NewExam: React.FC = () => {
     <Content>
       <Wrapper>
         <>
-          <BackButton link="/management/exam"/>
+          <BackButton link="/management/exams"/>
           <Title text="Novo exame" />
 
           <Form onSubmit={handleCreateExam}>

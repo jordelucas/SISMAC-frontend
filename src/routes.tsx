@@ -9,11 +9,12 @@ import NewUser from './pages/Users/New'
 import User from './pages/Users/View'
 import Management from './pages/Management'
 import Specialties from './pages/Management/Specialty/List'
-import Exam from './pages/Management/Exam/List'
+import Exams from './pages/Management/Exam/List'
 import NewExam from './pages/Management/Exam/New'
 import NewSpecialty from './pages/Management/Specialty/New'
 import Specialty from './pages/Management/Specialty/View'
 import NewVacancies from './pages/Management/Specialty/View/Vacancies/New'
+import Exam from './pages/Management/Exam/View'
 
 const Routes = () => {
   return (
@@ -31,8 +32,9 @@ const Routes = () => {
           <Route component={NewSpecialty} path="/management/specialties/new" exact/>
           <Route component={Specialty} path="/management/specialty/:id" exact/>
           <Route component={NewVacancies} path="/management/specialties/vacancies/new" exact/>
-          <Route component={Exam} path="/management/exam" exact/>
-          <Route component={NewExam} path="/management/exam/new" exact/>
+          <Route component={Exam} path="/management/exam/:id" exact/>
+          <Route component={Exams} path="/management/exams" exact/>
+          <Route component={NewExam} path="/management/exams/new" exact/>
           
         </>
       </Layout>
