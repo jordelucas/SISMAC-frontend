@@ -5,8 +5,14 @@ import { Link } from 'react-router-dom';
 import { Container, ArrowBackIcon } from './styles';
 
 interface BackButtonProps {
-  link: string;
+  link: string | LinkUsingProps;
 }
+
+interface LinkUsingProps {
+  pathname: string; 
+  state: { id: { pathname: string; }; };
+}
+
 const BackButton: React.FC<BackButtonProps> = ({ link }) => {
   return (
     <Container>
