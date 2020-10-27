@@ -1,10 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const StyledHeader = styled.header`  
+interface HeaderProps {
+  mb?: string;
+}
+
+export const StyledHeader = styled.header<HeaderProps>`  
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: ${props => props.mb ? `${props.mb}px` : ''};
+
 
   > button {
     color: #103a53;
@@ -48,9 +54,9 @@ export const StyledHeader = styled.header`
   }
 `;
 
-const Header: React.FC = ({ children }) => {
+const Header: React.FC<HeaderProps> = ({ children, mb }) => {
   return (
-    <StyledHeader>
+    <StyledHeader mb={mb}>
       {children}
     </StyledHeader>  
   )

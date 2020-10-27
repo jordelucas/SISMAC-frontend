@@ -9,7 +9,6 @@ interface DropdownProps {
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 25px;
 
   > input {
     height: 42px;
