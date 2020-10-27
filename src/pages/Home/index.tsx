@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     <Container>
       <List>
         <Item>
-          <Link to="/new-scheduling">
+          <Link to="/scheduling">
             <EventNote style={{ fontSize: 50 }}/>
             <span>Agendamentos</span>
           </Link>

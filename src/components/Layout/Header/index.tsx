@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 interface HeaderProps {
   mb?: string;
+  mt?: string;
 }
 
 export const StyledHeader = styled.header<HeaderProps>`  
@@ -10,7 +11,7 @@ export const StyledHeader = styled.header<HeaderProps>`
   align-items: center;
   justify-content: space-between;
   margin-bottom: ${props => props.mb ? `${props.mb}px` : ''};
-
+  margin-top: ${props => props.mt ? `${props.mt}px` : ''};
 
   > button {
     color: #103a53;
@@ -54,9 +55,9 @@ export const StyledHeader = styled.header<HeaderProps>`
   }
 `;
 
-const Header: React.FC<HeaderProps> = ({ children, mb }) => {
+const Header: React.FC<HeaderProps> = ({ children, mb, mt }) => {
   return (
-    <StyledHeader mb={mb}>
+    <StyledHeader mb={mb} mt={mt}>
       {children}
     </StyledHeader>  
   )

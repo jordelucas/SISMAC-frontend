@@ -39,7 +39,7 @@ const Routes = () => {
           <Route component={NewVacanciesExam} path="/management/exams/vacancies/new" exact/>
           <Route component={Exam} path="/management/exam/:id" exact/>
           
-          <Route component={Scheduling} path="/new-scheduling" exact/>
+          <Route component={Scheduling} path="/scheduling" exact/>
         </>
       </Layout>
     </BrowserRouter>
