@@ -13,9 +13,17 @@ import {
 
 interface FilterProps {
   patientsFiltered: Function;
+  selectedOptionInFilter?: Function;
+  options: OptionsProps;
 }
 
-const Filter: React.FC<FilterProps> = ({ patientsFiltered }) => {
+interface OptionsProps {
+  cpf: boolean;
+  sus: boolean;
+  nome: boolean;
+}
+
+const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOptionInFilter }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
   const [textFilter, setTextFilter] = useState('');
@@ -44,6 +52,9 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered }) => {
         break
     }
 
+    if (selectedOptionInFilter) {
+      selectedOptionInFilter(selectedOption)
+    }
     patientsFiltered(data)
   }
 
@@ -93,9 +104,15 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered }) => {
         }
         
         <DropdownFilter isOpen={isOpen}>
-          <Option onClick={() => addFilter("Nome")}>Nome</Option>
-          <Option onClick={() => addFilter("CPF")}>CPF</Option>
-          <Option onClick={() => addFilter("SUS")}>SUS</Option>
+          {options.nome && (
+            <Option onClick={() => addFilter("Nome")}>Nome</Option>
+          )}
+          {options.cpf && (
+            <Option onClick={() => addFilter("CPF")}>CPF</Option>
+          )}
+          {options.sus && (
+            <Option onClick={() => addFilter("SUS")}>SUS</Option>
+          )}
         </DropdownFilter>
       </Search>
 

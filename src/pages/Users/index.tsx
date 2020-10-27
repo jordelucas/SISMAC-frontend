@@ -31,18 +31,24 @@ const Users: React.FC<Patient> = () => {
     setFilteredPatients(filteredPatients);
   }
 
+  const options = {
+    cpf: true,
+    sus: true,
+    nome: true,
+  }
+
   return (
     <Content>
       <Wrapper>
         <>
           <BackButton link="/"/>
 
-          <Header>
+          <Header mb="20">
             <Title text="Lista de pacientes" />
             <Link to="/users/new">Adicionar paciente</Link>
           </Header>
 
-          <Filter patientsFiltered={handleFilteredPatients}/>
+          <Filter patientsFiltered={handleFilteredPatients} options={options}/>
 
           <Table>
             <TableHead>
