@@ -6,20 +6,22 @@ import styled from 'styled-components';
 interface TitleProps {
   text: string;
   align?: string;
+  size?: string;
 }
 
 interface StyledTitleProps {
   align?: string;
+  size?: string;
 }
 
-const Title: React.FC<TitleProps> = ({ text, align }) => {
+const Title: React.FC<TitleProps> = ({ text, align, size }) => {
   return (
-    <StyledTitle align={align}>{text}</StyledTitle>
+    <StyledTitle align={align} size={size}>{text}</StyledTitle>
   );
 }
 
 const StyledTitle = styled.h1<StyledTitleProps>`
-  font-size: 28px;
+  font-size: ${props => props.size ? `${props.size}px` : '28px'};
   text-align: ${props => props.align ? props.align : ''};
   color: #6b6b6b;
 `

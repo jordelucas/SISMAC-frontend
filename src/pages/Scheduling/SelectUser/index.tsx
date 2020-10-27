@@ -16,6 +16,7 @@ interface Patient {
   carteiraSUS: string;
   cpf: string;
   dataNascimento: string;
+  telefone: string;
 }
 
 interface SelectUserProps {
@@ -33,6 +34,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
       carteiraSUS,
       cpf,
       dataNascimento,
+      telefone,
     } = filteredPatients[0];
     
     const patient = {
@@ -41,6 +43,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
       carteiraSUS,
       cpf,
       dataNascimento,
+      telefone,
     }
 
     setFilteredPatient(patient);
