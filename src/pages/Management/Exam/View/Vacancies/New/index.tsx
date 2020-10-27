@@ -23,28 +23,28 @@ interface LocationState {
   };
 }
 
-interface SpecialtyProps {
-  nomeEspecialidade: string;
+interface ExamProps {
+  nomeExame: string;
 }
 
-const NewVacancies: React.FC = () => {
-  const { state: specialtyId } = useLocation<LocationState>();
+const NewVacanciesExam: React.FC = () => {
+  const { state: exameId } = useLocation<LocationState>();
   
-  const [nomeEspecialidade, setNomeEspecialidade] = useState('')
+  const [nomeExame, setNomeExame] = useState('')
   const [data, setData] = useState('')
   const [vagas, setVagas] = useState('')
 
-  const { id } = specialtyId || { id: { pathname: "/" } };
+  const { id } = exameId || { id: { pathname: "/" } };
 
   useEffect(() => {
-    api.get<SpecialtyProps>(
-      `especialidades/${id}`
+    api.get<ExamProps>(
+      `exames/${id}`
     ).then((response) => {
       const { 
-        nomeEspecialidade: specialtyNome,
+        nomeExame: examNome,
        } = response.data;
 
-       setNomeEspecialidade(specialtyNome)
+       setNomeExame(examNome)
     }) 
   }, [id])
 
@@ -56,9 +56,9 @@ const NewVacancies: React.FC = () => {
     api.post('vagas', {
       data: vacancyDate,
       vagasOfertadas: vagas,
-      especialidade: id,
-      exame: null,
-      consulta: true,
+      especialidade: null,
+      exame: id,
+      consulta: false
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();
@@ -77,12 +77,12 @@ const NewVacancies: React.FC = () => {
       <Wrapper>
         <>
           <BackButton link={{
-            pathname: `/management/specialty/${id}`,
+            pathname: `/management/exam/${id}`,
             state: {
               id,
             }
           }}/>
-          <Title text={`Novas vagas - ${nomeEspecialidade}`} />
+          <Title text={`Novas vagas - ${nomeExame}`} />
 
           <Form onSubmit={handleCreateVacancy}>
             <Grid>
@@ -114,4 +114,4 @@ const NewVacancies: React.FC = () => {
   );
 }
 
-export default NewVacancies;
+export default NewVacanciesExam;

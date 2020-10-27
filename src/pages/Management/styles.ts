@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const List = styled.ul`
   width: 576px;
   display: grid;
+  justify-content: center;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   margin: auto;

@@ -30,11 +30,23 @@ interface ExamProps {
   autorizacao: boolean;
 }
 
+interface VacanciesProps {
+  content: Details[];
+}
+
+interface Details {
+  id: number,
+  data: string,
+  vagasOfertadas: number,
+  vagasRestantes: number,
+}
+
 const Exam: React.FC = () => {
   const { state: examId } = useLocation<LocationState>();
 
   const [isEditDisabled, setIsEditDisabled] = useState(true)
-
+  
+  const [vacancies, setVacancies] = useState<Details[]>()
   const [nome, setNome] = useState('')
   const [authorization, setAuthorization] = useState(false)
   
@@ -51,6 +63,27 @@ const Exam: React.FC = () => {
 
        setNome(examNome)
        setAuthorization(examAutorizacao)
+    }) 
+  }, [id])
+
+  useEffect(() => {
+    api.get<VacanciesProps>(
+      `vagas?consulta=false&exame_id=${id}`
+    ).then((response) => {
+      const { 
+        content: listVacancies
+      } = response.data;
+
+      const filteredVacancies = listVacancies.map(item => {
+        return {
+          ...item,
+          data: item.data.split('-').reverse().join('/')
+        }
+      })
+
+      console.log(filteredVacancies)
+
+       setVacancies(filteredVacancies)
     }) 
   }, [id])
 
@@ -130,24 +163,17 @@ const Exam: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td>10/10/2020</td>
-                <td>15/30</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
-              <tr>
-                <td>15/10/2020</td>
-                <td>13/15</td>
-                <td>
-                  <Link to='/'>
-                    <ArrowForwardIcon />
-                  </Link>
-                </td>
-              </tr>
+              {vacancies?.map(vacancy => (
+                <tr key={vacancy.id}>
+                  <td>{vacancy.data}</td>
+                  <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
+                  <td>
+                    <Link to='/'>
+                      <ArrowForwardIcon />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
             </TableBody>
           </Table>
         </>
