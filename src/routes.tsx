@@ -13,8 +13,10 @@ import Exams from './pages/Management/Exam/List'
 import NewExam from './pages/Management/Exam/New'
 import NewSpecialty from './pages/Management/Specialty/New'
 import Specialty from './pages/Management/Specialty/View'
-import NewVacancies from './pages/Management/Specialty/View/Vacancies/New'
 import Exam from './pages/Management/Exam/View'
+import NewVacanciesSpecialty from './pages/Management/Specialty/View/Vacancies/New'
+import NewVacanciesExam from './pages/Management/Exam/View/Vacancies/New'
+import Scheduling from './pages/Scheduling'
 
 const Routes = () => {
   return (
@@ -31,11 +33,13 @@ const Routes = () => {
           <Route component={Specialties} path="/management/specialties" exact/>
           <Route component={NewSpecialty} path="/management/specialties/new" exact/>
           <Route component={Specialty} path="/management/specialty/:id" exact/>
-          <Route component={NewVacancies} path="/management/specialties/vacancies/new" exact/>
-          <Route component={Exam} path="/management/exam/:id" exact/>
+          <Route component={NewVacanciesSpecialty} path="/management/specialties/vacancies/new" exact/>
           <Route component={Exams} path="/management/exams" exact/>
           <Route component={NewExam} path="/management/exams/new" exact/>
+          <Route component={NewVacanciesExam} path="/management/exams/vacancies/new" exact/>
+          <Route component={Exam} path="/management/exam/:id" exact/>
           
+          <Route component={Scheduling} path="/new-scheduling" exact/>
         </>
       </Layout>
     </BrowserRouter>

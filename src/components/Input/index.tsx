@@ -10,7 +10,7 @@ interface InputProps {
   checked?: boolean;
   disabled: boolean;
   mask?: Function;
-  onChange: Function;
+  onChange?: Function;
 }
 
 const Input: React.FC<InputProps> = ({ 
@@ -25,10 +25,12 @@ const Input: React.FC<InputProps> = ({
 }) => {
   
   function handleChangeText(e: React.ChangeEvent<HTMLInputElement>) {
-    if (mask) {
-      onChange(mask(e.target.value))
-    } else {
-      onChange(e.target.value)
+    if(onChange){
+      if (mask) {
+        onChange(mask(e.target.value))
+      } else {
+        onChange(e.target.value)
+      }
     }
   }
 
@@ -52,8 +54,8 @@ const Input: React.FC<InputProps> = ({
         <>
           <StyledLabel htmlFor={identifier}>{label}</StyledLabel>
           {checked 
-            ? <ToggleOn onClick={() => !disabled && onChange(!checked)} /> 
-            : <ToggleOff onClick={() => !disabled && onChange(!checked)} />
+            ? <ToggleOn onClick={() => (!disabled && onChange) && onChange(!checked)} /> 
+            : <ToggleOff onClick={() => (!disabled && onChange) && onChange(!checked)} />
           }
         </>
       )}
