@@ -30,7 +30,8 @@ const Datalist: React.FC<DatalistProps> = ({
   }
 
   function handleExit() {
-    onChange(optionSelected);
+    const result = optionsList?.filter(option => option.name === optionSelected);
+    onChange(result![0!]);
   }
 
   return (

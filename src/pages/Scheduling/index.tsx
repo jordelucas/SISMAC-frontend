@@ -48,8 +48,8 @@ interface OptionsList {
 
 const Scheduling: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
-  const [choice, setChoice] = useState<string>('');
-  const [optionSelected, setOptionSelected] = useState<string>('');
+  const [choice, setChoice] = useState<OptionsList>();
+  const [optionSelected, setOptionSelected] = useState<OptionsList>();
   const [optionsList, setOptionsList] = useState<OptionsList[]>();
 
   useEffect(() => {
@@ -64,7 +64,6 @@ const Scheduling: React.FC = () => {
 
     async function loadAllSpecialties() {
       const response = await api.get<SpecialtyArrayProps[]>('especialidades/todasEspecialidades');
-      console.log(response.data)
       const allSpecialty = response.data.map(specialty => {
         return {name: specialty.nomeEspecialidade, id: specialty.id}
       })
@@ -72,12 +71,13 @@ const Scheduling: React.FC = () => {
       setOptionsList(allSpecialty);
     }
 
-    if (choice === 'Exame') {
+    console.log(choice)
+    if (choice?.id === 1) {
       loadAllExams();
-    } else if (choice === 'Consulta') {
+    } else if (choice?.id === 2) {
       loadAllSpecialties();
     }
-  }, [choice])
+  }, [choice]);
 
   function renderPatientData() {
     return (
@@ -136,6 +136,41 @@ const Scheduling: React.FC = () => {
     )
   }
 
+  function renderSchedulingChoice() {
+    return (
+      <>
+        <Header>
+          <Title text="Solicitação" size="20" />
+        </Header>
+
+        <Form>
+          <SolicitationGrid>
+            <FormGroup gridArea='TP'>
+              <Datalist 
+                name="type"
+                identifier="type"
+                identifierList="exam_or_speciality"
+                label="Tipo da solicitação"
+                onChange={setChoice}
+                optionsList={[{name: 'Exame', id: 1}, {name: 'Consulta', id: 2}]}
+              />
+            </FormGroup>
+            <FormGroup gridArea='OP'>
+              <Datalist 
+                name="options"
+                identifier="options"
+                identifierList="scheduling_options"
+                label="Opções para agendamento"
+                onChange={setOptionSelected}
+                optionsList={optionsList}
+              />
+            </FormGroup>
+          </SolicitationGrid>
+        </Form>
+      </>
+    )
+  }
+
   return (
     <Content>
       <Wrapper>
@@ -149,34 +184,7 @@ const Scheduling: React.FC = () => {
             <>
               {renderPatientData()}
 
-              <Header>
-                <Title text="Solicitação" size="20" />
-              </Header>
-
-              <Form>
-                <SolicitationGrid>
-                  <FormGroup gridArea='TP'>
-                    <Datalist 
-                      name="type"
-                      identifier="type"
-                      identifierList="exam_or_speciality"
-                      label="Tipo da solicitação"
-                      onChange={setChoice}
-                      optionsList={[{name: 'Exame', id: 1}, {name: 'Consulta', id: 2}]}
-                    />
-                  </FormGroup>
-                  <FormGroup gridArea='OP'>
-                    <Datalist 
-                      name="options"
-                      identifier="options"
-                      identifierList="scheduling_options"
-                      label="Opções para agendamento"
-                      onChange={setOptionSelected}
-                      optionsList={optionsList}
-                    />
-                  </FormGroup>
-                </SolicitationGrid>
-              </Form>
+              {renderSchedulingChoice()}
             </>
           )}
         </>
