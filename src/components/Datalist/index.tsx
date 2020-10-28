@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
+
+interface OptionsList {
+  name: string;
+  id: number;
+}
 
 interface DatalistProps {
   label: string;
   identifier: string;
   identifierList: string;
   name: string;
-  optionsList: string[];
-  // checked?: boolean;
-  // disabled: boolean;
-  // mask?: Function;
-  // onChange?: Function;
+  optionsList: OptionsList[] | undefined;
+  onChange: Function;
 }
 
 const Datalist: React.FC<DatalistProps> = ({ 
@@ -19,17 +21,17 @@ const Datalist: React.FC<DatalistProps> = ({
   identifierList,
   name,
   optionsList,
+  onChange,
 }) => {
+  const [optionSelected, setOptionSelected] = useState('')
   
-  // function handleChangeText(e: React.ChangeEvent<HTMLInputElement>) {
-  //   if(onChange){
-  //     if (mask) {
-  //       onChange(mask(e.target.value))
-  //     } else {
-  //       onChange(e.target.value)
-  //     }
-  //   }
-  // }
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setOptionSelected(e.target.value);
+  }
+
+  function handleExit() {
+    onChange(optionSelected);
+  }
 
   return (
     <>
@@ -38,10 +40,13 @@ const Datalist: React.FC<DatalistProps> = ({
         id={identifier} 
         name={name} 
         list={identifierList}
+        onChange={handleChange}
+        onBlur={handleExit}
+        value={optionSelected}
       />
       <datalist id={identifierList}>
-        {optionsList.map(option => (
-          <option id={option} value={option}/>
+        {optionsList?.map((option, index) => (
+          <option key={index} id={`${option.id}`} value={option.name} />
         ))}
       </datalist>
     </>
