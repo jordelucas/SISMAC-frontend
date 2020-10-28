@@ -46,11 +46,26 @@ interface OptionsList {
   id: number;
 }
 
+interface VacanciesProps {
+  content: Details[];
+}
+
+interface Details {
+  id: number,
+  data: string,
+  vagasOfertadas: number,
+  vagasRestantes: number,
+}
+
+const SPACIALTY_URL = "vagas?consulta=true&especialidade_id"
+const EXAM_URL = "vagas?consulta=false&exame_id"
+
 const Scheduling: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
   const [choice, setChoice] = useState<OptionsList>();
   const [optionSelected, setOptionSelected] = useState<OptionsList>();
   const [optionsList, setOptionsList] = useState<OptionsList[]>();
+  const [vacancies, setVacancies] = useState<Details[]>()
 
   useEffect(() => {
     async function loadAllExams() {
@@ -71,7 +86,6 @@ const Scheduling: React.FC = () => {
       setOptionsList(allSpecialty);
     }
 
-    console.log(choice)
     if (choice?.id === 1) {
       loadAllExams();
     } else if (choice?.id === 2) {
@@ -79,6 +93,42 @@ const Scheduling: React.FC = () => {
     }
   }, [choice]);
 
+  useEffect(() => {
+    function loadAllSpecialtyVacancies() {
+      var BASE_URL;
+
+      if (choice?.id === 1) {
+        BASE_URL = EXAM_URL;
+      } else if (choice?.id === 2) {
+        BASE_URL = SPACIALTY_URL;
+      } else {
+        return;
+      }
+
+      api.get<VacanciesProps>(
+        `${BASE_URL}=${optionSelected?.id}`
+      ).then((response) => {
+        const { 
+          content: listVacancies
+        } = response.data;
+  
+        const filteredVacancies = listVacancies.map(item => {
+          return {
+            ...item,
+            data: item.data.split('-').reverse().join('/')
+          }
+        })
+  
+        console.log(filteredVacancies);
+        setVacancies(filteredVacancies);
+      })
+    }
+
+    if (choice && optionSelected) {
+      loadAllSpecialtyVacancies()
+    }
+  }, [choice, optionSelected])
+  
   function renderPatientData() {
     return (
       <>

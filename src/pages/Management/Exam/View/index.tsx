@@ -80,10 +80,8 @@ const Exam: React.FC = () => {
           data: item.data.split('-').reverse().join('/')
         }
       })
-
-      console.log(filteredVacancies)
-
-       setVacancies(filteredVacancies)
+      
+      setVacancies(filteredVacancies)
     }) 
   }, [id])
 
