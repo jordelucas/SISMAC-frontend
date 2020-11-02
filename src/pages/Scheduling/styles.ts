@@ -31,7 +31,8 @@ grid-template-columns: 1fr 1fr 1fr;
 gap: 20px;
 
 grid-template-areas:
-  'TP OP NV';
+  'TP OP VZ'
+  'VC VC VC';
 `;
 
 export const FormGroup = styled.div<FormGroupProps>`

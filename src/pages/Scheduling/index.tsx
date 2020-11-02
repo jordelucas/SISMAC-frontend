@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import BackButton from '../../components/BackButton';
+import { Button } from '../../components/Button';
 import Datalist from '../../components/Datalist';
 import Input from '../../components/Input';
 
@@ -46,26 +47,14 @@ interface OptionsList {
   id: number;
 }
 
-interface VacanciesProps {
-  content: Details[];
-}
-
-interface Details {
-  id: number,
-  data: string,
-  vagasOfertadas: number,
-  vagasRestantes: number,
-}
-
-const SPACIALTY_URL = "vagas?consulta=true&especialidade_id"
-const EXAM_URL = "vagas?consulta=false&exame_id"
+const SPECIALTY_URL = "filaEspera/filaConsulta"
+const EXAM_URL = "filaEspera/filaExame"
 
 const Scheduling: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
   const [choice, setChoice] = useState<OptionsList>();
   const [optionSelected, setOptionSelected] = useState<OptionsList>();
   const [optionsList, setOptionsList] = useState<OptionsList[]>();
-  const [vacancies, setVacancies] = useState<Details[]>()
 
   useEffect(() => {
     async function loadAllExams() {
@@ -92,43 +81,44 @@ const Scheduling: React.FC = () => {
       loadAllSpecialties();
     }
   }, [choice]);
-
-  useEffect(() => {
-    function loadAllSpecialtyVacancies() {
-      var BASE_URL;
-
-      if (choice?.id === 1) {
-        BASE_URL = EXAM_URL;
-      } else if (choice?.id === 2) {
-        BASE_URL = SPACIALTY_URL;
-      } else {
-        return;
-      }
-
-      api.get<VacanciesProps>(
-        `${BASE_URL}=${optionSelected?.id}`
-      ).then((response) => {
-        const { 
-          content: listVacancies
-        } = response.data;
   
-        const filteredVacancies = listVacancies.map(item => {
-          return {
-            ...item,
-            data: item.data.split('-').reverse().join('/')
-          }
-        })
-  
-        console.log(filteredVacancies);
-        setVacancies(filteredVacancies);
+  function handleScheduling(e: FormEvent) {
+    e.preventDefault();
+
+    if (choice?.id === 1) {
+      api.post(EXAM_URL, {
+        user_id: 1,
+        paciente_id: selectedPatient?.id,
+        exame_id: optionSelected?.id,
+      }).then(() => {
+        alert('Agendamento realizado com sucesso!')
+        clearStates();
+      }).catch(() => {
+        alert('Erro no agendamento!')
       })
+    } else if (choice?.id === 2) {
+      api.post(SPECIALTY_URL, {
+        user_id: 1,
+        paciente_id: selectedPatient?.id,
+        especialidade_id: optionSelected?.id,
+      }).then(() => {
+        alert('Agendamento realizado com sucesso!')
+        clearStates();
+      }).catch(() => {
+        alert('Erro no agendamento!')
+      })
+    } else {
+      return;
     }
+  }
 
-    if (choice && optionSelected) {
-      loadAllSpecialtyVacancies()
-    }
-  }, [choice, optionSelected])
-  
+  function clearStates(){
+    setSelectedPatient(undefined);
+    setChoice(undefined);
+    setOptionSelected(undefined);
+    setOptionsList([]);
+  }
+
   function renderPatientData() {
     return (
       <>
@@ -193,7 +183,7 @@ const Scheduling: React.FC = () => {
           <Title text="Solicitação" size="20" />
         </Header>
 
-        <Form>
+        <Form onSubmit={handleScheduling}>
           <SolicitationGrid>
             <FormGroup gridArea='TP'>
               <Datalist 
@@ -216,6 +206,8 @@ const Scheduling: React.FC = () => {
               />
             </FormGroup>
           </SolicitationGrid>
+
+          <Button type="submit">Agendar</Button>
         </Form>
       </>
     )
