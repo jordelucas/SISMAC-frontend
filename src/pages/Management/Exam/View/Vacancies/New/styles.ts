@@ -17,7 +17,7 @@ grid-template-columns: 1fr 1fr 1fr;
 gap: 20px;
 
 grid-template-areas:
-  'DT VG VZ'
+  'DT VG LC'
   'NV NV BT';
 `;
 

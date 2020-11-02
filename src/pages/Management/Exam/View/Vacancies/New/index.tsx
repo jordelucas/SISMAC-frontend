@@ -33,6 +33,7 @@ const NewVacanciesExam: React.FC = () => {
   const [nomeExame, setNomeExame] = useState('')
   const [data, setData] = useState('')
   const [vagas, setVagas] = useState('')
+  const [local, setLocal] = useState('')
 
   const { id } = exameId || { id: { pathname: "/" } };
 
@@ -58,7 +59,9 @@ const NewVacanciesExam: React.FC = () => {
       vagasOfertadas: vagas,
       especialidade: null,
       exame: id,
-      consulta: false
+      consulta: false,
+      medico: "",
+      lugar: local,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();
@@ -70,6 +73,7 @@ const NewVacanciesExam: React.FC = () => {
   function clearStates(){
     setData('')
     setVagas('')
+    setLocal('')
   }
 
   return (
@@ -102,6 +106,15 @@ const NewVacanciesExam: React.FC = () => {
                   identifier="vagas"
                   value={vagas}
                   onChange={setVagas}
+                  disabled={false}/>
+              </FormGroup>
+              <FormGroup gridArea='LC'>
+                <Input 
+                  type="text"
+                  label="Local"
+                  identifier="local"
+                  value={local}
+                  onChange={setLocal}
                   disabled={false}/>
               </FormGroup>
             </Grid>

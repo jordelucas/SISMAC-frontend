@@ -33,6 +33,8 @@ const NewVacanciesSpecialty: React.FC = () => {
   const [nomeEspecialidade, setNomeEspecialidade] = useState('')
   const [data, setData] = useState('')
   const [vagas, setVagas] = useState('')
+  const [especialista, setEspecialista] = useState('')
+  const [local, setLocal] = useState('')
 
   const { id } = specialtyId || { id: { pathname: "/" } };
 
@@ -59,6 +61,8 @@ const NewVacanciesSpecialty: React.FC = () => {
       especialidade: id,
       exame: null,
       consulta: true,
+      medico: especialista,
+      lugar: local,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();
@@ -70,6 +74,8 @@ const NewVacanciesSpecialty: React.FC = () => {
   function clearStates(){
     setData('')
     setVagas('')
+    setEspecialista('')
+    setLocal('')
   }
 
   return (
@@ -102,6 +108,24 @@ const NewVacanciesSpecialty: React.FC = () => {
                   identifier="vagas"
                   value={vagas}
                   onChange={setVagas}
+                  disabled={false}/>
+              </FormGroup>
+              <FormGroup gridArea='ES'>
+                <Input 
+                  type="text"
+                  label="Especialista"
+                  identifier="especialista"
+                  value={especialista}
+                  onChange={setEspecialista}
+                  disabled={false}/>
+              </FormGroup>
+              <FormGroup gridArea='LC'>
+                <Input 
+                  type="text"
+                  label="Local"
+                  identifier="local"
+                  value={local}
+                  onChange={setLocal}
                   disabled={false}/>
               </FormGroup>
             </Grid>
