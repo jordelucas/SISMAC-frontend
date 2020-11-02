@@ -29,6 +29,7 @@ interface Patient {
 }
 
 interface Details {
+  id: number;
   nomePaciente: string;
   carteiraSUS: string;
   cpf: string;
@@ -40,11 +41,23 @@ interface Details {
   numero: string;
 }
 
+interface SchedulesList {
+  content: Array<Schedules>
+}
+
+interface Schedules {
+  id: number,
+  dataAgendamento: string,
+  nomeExame: string,
+  nomeEspecialidade: string,
+}
+
 const User: React.FC = () => {
   const { state: patientId } = useLocation<LocationState>();
 
   const [isEditDisabled, setIsEditDisabled] = useState(true)
 
+  const [identifier, setIdentifier] = useState<number>()
   const [nome, setNome] = useState('')
   const [dtNascimento, setDtNascimento] = useState('')
   const [cpf, setCpf] = useState('')
@@ -54,6 +67,7 @@ const User: React.FC = () => {
   const [bairro, setBairro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
+  const [schedules, setSchedules] = useState<Schedules[]>()
   
   const { id } = patientId || { id: { pathname: "/" } };
 
@@ -64,6 +78,7 @@ const User: React.FC = () => {
       }
     }).then((response) => {
       const { 
+        id: identifier,
         nomePaciente: patientNome,
         cpf: patientCpf,
         carteiraSUS: patientNsus,
@@ -77,6 +92,7 @@ const User: React.FC = () => {
 
        const patientDtNascimento = dataNascimento.split('/').reverse().join('-')
 
+       setIdentifier(identifier)
        setNome(patientNome)
        setDtNascimento(patientDtNascimento)
        setCpf(patientCpf)
@@ -88,6 +104,19 @@ const User: React.FC = () => {
        setComplemento(patientComplemento)
     }) 
   }, [id])
+
+  useEffect(() => {
+    if (identifier !== undefined) {
+      api.get<SchedulesList>(
+        `agendamento/${identifier}`
+      ).then((response) => {
+        const result = response.data.content;
+        setSchedules(result);
+      }).catch(() => {
+        alert('Erro ao buscar agendamentos!')
+      })
+    }
+  }, [identifier])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
@@ -227,18 +256,21 @@ const User: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              <tr>
-                <td>504</td>
-                <td>Cardiologista</td>
-                <td>10/10/2020</td>
-                <td>Marcado</td>
-              </tr>
-              <tr>
-                <td>513</td>
-                <td>Ortopedista</td>
-                <td>- -/- -/- - - -</td>
-                <td>Aguardando</td>
-              </tr>
+              {schedules?.map(scheduling => {
+                return (
+                  <tr>
+                    <td>{scheduling.id}</td>
+                    <td>
+                      {scheduling.nomeEspecialidade 
+                        ? scheduling.nomeEspecialidade 
+                        : scheduling.nomeExame
+                      }
+                    </td>
+                    <td>{scheduling.dataAgendamento}</td>
+                    <td>Marcado</td>
+                  </tr>
+                )
+              })}
             </TableBody>
           </Table>
         </>
