@@ -15,24 +15,36 @@ export const Form = styled.form`
 `;
 
 export const PatientGrid = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-grid-template-areas:
-  'NM NM NC'
-  'CP SU FN'
-  'NV NV BT';
+  @media(min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+
+    grid-template-areas:
+      'NM NM NC'
+      'CP SU FN'
+      'NV NV BT';
+  }
 `;
 
 export const SolicitationGrid = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-grid-template-areas:
-  'TP OP VZ'
-  'VC VC VC';
+  @media(min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+
+    grid-template-areas:
+      'TP OP VZ'
+      'VC VC VC';
+  }
 `;
 
 export const FormGroup = styled.div<FormGroupProps>`
