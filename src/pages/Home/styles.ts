@@ -13,6 +13,21 @@ export const List = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   margin: auto;
   list-style: none;
+
+  @media(max-width: 768px) {
+    height: 150px;
+    width: 500px;
+  }
+
+  @media(max-width: 500px) {
+    width: 250px;
+    height: initial;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 32px auto;
+  }
 `
 
 export const Item = styled.li` 
@@ -35,6 +50,10 @@ export const Item = styled.li`
     
     &:hover {
       background: rgba(255, 255, 255, 0.8);
+    }
+
+    > svg {
+      font-size: 5.0rem;
     }
     
     span {

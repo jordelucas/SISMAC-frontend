@@ -15,19 +15,19 @@ const Home: React.FC = () => {
       <List>
         <Item>
           <Link to="/scheduling">
-            <EventNote style={{ fontSize: 50 }}/>
+            <EventNote />
             <span>Agendamentos</span>
           </Link>
         </Item>
         <Item>
           <Link to="/management">
-            <LocalHospital style={{ fontSize: 50 }}/>
+            <LocalHospital />
             <span>Consultas e exames</span>
           </Link>
         </Item>
         <Item>
           <Link to="/users">
-            <PeopleAlt style={{ fontSize: 50 }}/>
+            <PeopleAlt />
             <span>Pacientes</span>
           </Link>
         </Item>

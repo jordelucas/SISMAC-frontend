@@ -29,6 +29,12 @@ const GlobalStyle = createGlobalStyle`
     table {
         border-collapse: collapse;
     }
+
+    @media(max-width: 768px) {
+        html {
+            font-size: 50%;
+        }
+    }
 `
 
 export default GlobalStyle;
