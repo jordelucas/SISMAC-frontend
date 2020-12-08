@@ -21,7 +21,7 @@ const Title: React.FC<TitleProps> = ({ text, align, size }) => {
 }
 
 const StyledTitle = styled.h1<StyledTitleProps>`
-  font-size: ${props => props.size ? `${props.size}px` : '28px'};
+  font-size: ${props => props.size ? `${props.size}rem` : '2.8rem'};
   text-align: ${props => props.align ? props.align : ''};
   color: #6b6b6b;
 `

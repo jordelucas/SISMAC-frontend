@@ -57,10 +57,10 @@ const Datalist: React.FC<DatalistProps> = ({
 }
 
 const StyledLabel = styled.label`
-  font-size: 12px;
+  font-size: 1.2rem;
   position: absolute;
-  top: 8px;
-  left: 10px;
+  top: 0.8rem;
+  left: 1rem;
   color: #6b6b6b;
 `
 
@@ -69,7 +69,7 @@ const StyledInput = styled.input`
   text-transform: uppercase;
   border: 1px solid #E5E6F0;
   border-radius: 5px;
-  padding: 28px 10px 10px 10px;
+  padding: 2.8rem 1rem 1rem 1rem;
   transition: border-color 0.3s;
     
   &:hover, &:focus {

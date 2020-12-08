@@ -7,7 +7,7 @@ interface FormGroupProps {
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
-  margin: 25px;
+  margin: 2.5rem;
 `;
 
 export const Grid = styled.div`

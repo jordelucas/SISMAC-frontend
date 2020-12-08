@@ -122,8 +122,8 @@ const Scheduling: React.FC = () => {
   function renderPatientData() {
     return (
       <>
-        <Header mt="20">
-          <Title text="Paciente" size="20" />
+        <Header mt="2">
+          <Title text="Paciente" size="2" />
         </Header>
 
         <Form>
@@ -180,7 +180,7 @@ const Scheduling: React.FC = () => {
     return (
       <>
         <Header>
-          <Title text="Solicitação" size="20" />
+          <Title text="Solicitação" size="2" />
         </Header>
 
         <Form onSubmit={handleScheduling}>

@@ -9,7 +9,7 @@ interface FormGroupProps {
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
-  margin: 25px 0;
+  margin: 2.5rem 0;
 `;
 
 export const Grid = styled.div`
@@ -33,7 +33,7 @@ export const FormGroup = styled.div<FormGroupProps>`
 
 export const Typography = styled.label`
   color: #6b6b6b;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin: 20px 0 5px 0;
+  margin: 2rem 0 0.5rem 0;
 `

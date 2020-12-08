@@ -8,7 +8,7 @@ interface FormGroupProps {
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
-  margin: 25px;
+  margin: 2.5rem;
 `;
 
 export const Grid = styled.div`
@@ -31,9 +31,9 @@ export const FormGroup = styled.div<FormGroupProps>`
   position: relative;
 
   > svg {
-    width: 40px!important;
-    height: 40px!important;
-    margin-left: 10px;
+    width: 4rem!important;
+    height: 4rem!important;
+    margin-left: 1rem;
     fill: #103a53;
     cursor: pointer;
   }

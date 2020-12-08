@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import { ArrowForward } from '@material-ui/icons';
 
 const IconCSS = css`
-  width: 22px;
-  height: 22px;
+  width: 2.2rem;
+  height: 2.2rem;
 `
 
 export const ArrowForwardIcon = styled(ArrowForward)`

@@ -55,7 +55,7 @@ export const Quantity = styled.div`
   height: 18px;
   color: #fff;
   background: #ff4f4f;
-  font-size: 8px;
-  margin-left: 10px;
+  font-size: 0.8rem;
+  margin-left: 1rem;
   border-radius: 50%;
 `

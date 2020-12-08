@@ -5,7 +5,7 @@ export const StyledNavbar = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 50px;
+    padding: 1rem 5rem;
     background: #103a53;
     color: #fff;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
@@ -26,8 +26,8 @@ export const StyledNavbar = styled.header`
         }
 
         img {
-            width: 50px;
-            height: 50px;
+            width: 5rem;
+            height: 5rem;
             border-radius: 50%;
         }
     }

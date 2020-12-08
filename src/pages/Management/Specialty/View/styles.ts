@@ -8,7 +8,7 @@ interface FormGroupProps {
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
-  margin: 25px;
+  margin: 2.5rem;
 `;
 
 export const Grid = styled.div`
@@ -31,8 +31,8 @@ export const FormGroup = styled.div<FormGroupProps>`
 `
 
 const IconCSS = css`
-  width: 22px;
-  height: 22px;
+  width: 2.2rem;
+  height: 2.2rem;
 `
 
 export const ArrowForwardIcon = styled(ArrowForward)`

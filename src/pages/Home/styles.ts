@@ -26,7 +26,7 @@ export const List = styled.ul`
     display: flex;
     flex-direction: column;
 
-    margin: 32px auto;
+    margin: 3.2rem auto;
   }
 `
 
@@ -39,7 +39,7 @@ export const Item = styled.li`
     justify-content: center;
     align-items: center;
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
     color: #6b6b6b;
     background: #fff;
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.02);
@@ -53,12 +53,12 @@ export const Item = styled.li`
     }
 
     > svg {
-      font-size: 5.0rem;
+      font-size: 5rem;
     }
     
     span {
       text-transform: uppercase;
-      margin-top: 20px;
+      margin-top: 2rem;
       font-size: 1.6rem;
       text-align: center;
     }

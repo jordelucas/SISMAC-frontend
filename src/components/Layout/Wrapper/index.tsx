@@ -15,15 +15,22 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
 
 export const StyledContainer = styled.div`
   width: 100%;
-  max-width: 992px;
-  margin: 50px auto;
-  padding: 30px;
+  padding: 3rem;
 
   display: flex;
   flex-direction: column;
 
   border-radius: 15px;
   background: #fff;
+
+  @media(min-width: 500px) {
+    margin: 5rem auto;
+    max-width: 90vw;
+  }
+
+  @media(min-width: 1000px) {
+    max-width: 992px;
+  }
 `;
 
 export default Wrapper;

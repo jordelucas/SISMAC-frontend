@@ -11,11 +11,11 @@ export const Container = styled.div`
   align-items: center;
 
   > input {
-    height: 42px;
+    height: 4.2rem;
     width: 100%;
     max-width: 350px;
 
-    padding: 0px 10px;
+    padding: 0 1rem;
     background: #fafafa;
     border: 1px solid #6b6b6b;
     border-radius: 0px 5px 5px 0;
@@ -30,9 +30,9 @@ export const Search = styled.div`
     display: flex;
     align-items: center;
 
-    font-size: 14px;
-    line-height: 40px;
-    padding: 0px 20px;
+    font-size: 1.4rem;
+    line-height: 4rem;
+    padding: 0 2rem;
     cursor: pointer;
 
     background: #fff;
@@ -42,8 +42,8 @@ export const Search = styled.div`
 `
 
 const IconCSS = css`
-  width: 22px;
-  height: 22px;
+  width: 2/2rem;
+  height: 2.2rem;
   border-radius: 50%;
 `
 
@@ -52,7 +52,7 @@ export const ArrowDropDownIcon = styled(ArrowDropDown)`${IconCSS}`;
 export const CloseIcon = styled(Close)`
   ${IconCSS}
 
-  margin-left: 10px;
+  margin-left: 1rem;
   
   opacity: 1;
   transition: background 0.3s, opacity 0.3s;
@@ -68,7 +68,7 @@ export const DropdownFilter = styled.ul<DropdownProps>`
   flex-direction: column;
   
   width: 100%;
-  top: 45px;
+  top: 4.5rem;
   position: absolute;
   
   border: 1px solid #6b6b6b;
@@ -80,9 +80,9 @@ export const DropdownFilter = styled.ul<DropdownProps>`
 `
 
 export const Option = styled.li`
-  line-height: 40px;
-  font-size: 14px;
-  padding-left: 20px;
+  line-height: 4rem;
+  font-size: 1.4rem;
+  padding-left: 2rem;
   opacity: 1;
   transition: background 0.3s, opacity 0.3s;
   cursor: pointer;
@@ -94,9 +94,9 @@ export const Option = styled.li`
 `
 
 export const ButtonSearch = styled.button`
-  width: 35px;
-  height: 35px;
-  margin-left: 15px;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-left: 1.5rem;
   background: #fafafa;
   border: none;
   border-radius: 50%;

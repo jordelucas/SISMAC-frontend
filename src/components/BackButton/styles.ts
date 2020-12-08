@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { ArrowBack } from '@material-ui/icons';
 
 export const Container = styled.div`  
-  margin-bottom: 35px;
+  margin-bottom: 3.5rem;
   
   a {
     display: flex;
@@ -13,7 +13,7 @@ export const Container = styled.div`
     text-decoration: none;
     
     > span {
-      margin-left: 10px;
+      margin-left: 1rem;
     }
 
     &:hover {
@@ -23,8 +23,8 @@ export const Container = styled.div`
 `;
 
 const IconCSS = css`
-  width: 25px!important;
-  height: 25px!important;
+  width: 2.5rem!important;
+  height: 2.5rem!important;
 `
 
 export const ArrowBackIcon = styled(ArrowBack)`${IconCSS}`;

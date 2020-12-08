@@ -10,14 +10,14 @@ export const StyledHeader = styled.header<HeaderProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: ${props => props.mb ? `${props.mb}px` : ''};
-  margin-top: ${props => props.mt ? `${props.mt}px` : ''};
+  margin-bottom: ${props => props.mb ? `${props.mb}rem` : ''};
+  margin-top: ${props => props.mt ? `${props.mt}rem` : ''};
 
   > button {
     color: #103a53;
-    font-size: 12px;
+    font-size: 1.2rem;
     background: #fff;
-    padding: 15px 20px;
+    padding: 1.5rem 2rem;
     border: none;
     border: 1px solid #103a53;
     border-radius: 5px;
@@ -39,9 +39,9 @@ export const StyledHeader = styled.header<HeaderProps>`
 
   > a {
     color: #fff;
-    font-size: 12px;
+    font-size: 1.2rem;
     background: #019637;
-    padding: 15px 20px;
+    padding: 1.5rem 2rem;
     border: none;
     border-radius: 5px;
     text-decoration: none;

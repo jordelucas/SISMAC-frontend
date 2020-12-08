@@ -43,7 +43,7 @@ const Users: React.FC<Patient> = () => {
         <>
           <BackButton link="/"/>
 
-          <Header mb="20">
+          <Header mb="2">
             <Title text="Lista de pacientes" />
             <Link to="/users/new">Adicionar paciente</Link>
           </Header>

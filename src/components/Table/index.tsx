@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Table = styled.table`
-  margin-top: 25px;
+  margin-top: 2.5rem;
 `
 
 export const TableHead = styled.thead`
@@ -12,8 +12,8 @@ export const TableHead = styled.thead`
 
     th {
       text-align: left;
-      padding-left: 15px; 
-      font-size: 12px;
+      padding-left: 1.5rem; 
+      font-size: 1.2rem;
       color: #6b6b6b;
     }
   }
@@ -25,8 +25,8 @@ export const TableBody = styled.tbody`
 
     td {
       text-align: left;
-      padding-left: 15px; 
-      padding-right: 15px; 
+      padding-left: 1.5rem; 
+      padding-right: 1.5rem; 
       font-weight: bold;
     }
   }
