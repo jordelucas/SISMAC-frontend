@@ -166,7 +166,13 @@ const Exam: React.FC = () => {
                   <td>{vacancy.data}</td>
                   <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
                   <td>
-                    <Link to='/'>
+                    <Link to={{
+                      pathname: `/management/exam/${id}/vacancy/${vacancy.id}`,
+                      state: {
+                        vacancyID: vacancy.id,
+                        examID: id,
+                      }
+                    }}>
                       <ArrowForwardIcon />
                     </Link>
                   </td>
