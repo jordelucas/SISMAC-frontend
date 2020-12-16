@@ -24,14 +24,13 @@ interface LocationState {
   };
 }
 
-interface Patient {
+interface Client {
   content: Array<Details>
 }
 
 interface Details {
   id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
+  nomeCliente: string;
   cpf: string;
   cidade: string;
   bairro: string;
@@ -39,18 +38,19 @@ interface Details {
   dataNascimento: string;
   telefone: string;
   numero: string;
+  fidelidade: boolean;
 }
 
-interface SchedulesList {
-  content: Array<Schedules>
-}
+// interface SchedulesList {
+//   content: Array<Schedules>
+// }
 
-interface Schedules {
-  id: number,
-  dataAgendamento: string,
-  nomeExame: string,
-  nomeEspecialidade: string,
-}
+// interface Schedules {
+//   id: number,
+//   dataAgendamento: string,
+//   nomeExame: string,
+//   nomeEspecialidade: string,
+// }
 
 const User: React.FC = () => {
   const { state: patientId } = useLocation<LocationState>();
@@ -58,65 +58,65 @@ const User: React.FC = () => {
   const [isEditDisabled, setIsEditDisabled] = useState(true)
 
   const [identifier, setIdentifier] = useState<number>()
-  const [nome, setNome] = useState('')
-  const [dtNascimento, setDtNascimento] = useState('')
-  const [cpf, setCpf] = useState('')
-  const [nsus, setNsus] = useState('')
-  const [telefone, setTelefone] = useState('')
-  const [cidade, setCidade] = useState('')
-  const [bairro, setBairro] = useState('')
-  const [numero, setNumero] = useState('')
-  const [complemento, setComplemento] = useState('')
-  const [schedules, setSchedules] = useState<Schedules[]>()
+  const [nome, setNome] = useState('');
+  const [dtNascimento, setDtNascimento] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [numero, setNumero] = useState('');
+  const [complemento, setComplemento] = useState('');
+  // const [schedules, setSchedules] = useState<Schedules[]>();
+  const [fidelidade, setFidelidade] = useState(false);
   
   const { id } = patientId || { id: { pathname: "/" } };
 
   useEffect(() => {
-    api.get<Patient>('pacientes', {
+    api.get<Client>('clientes', {
       params: {
         cpf: id
       }
     }).then((response) => {
       const { 
         id: identifier,
-        nomePaciente: patientNome,
-        cpf: patientCpf,
-        carteiraSUS: patientNsus,
+        nomeCliente: clientNome,
+        cpf: clientCpf,
         dataNascimento,
-        telefone: patientTelefone,
-        cidade: patientCidade,
-        bairro: patientBairro,
-        numero: patientNumero,
-        complemento: patientComplemento,
-       } = response.data.content[0];
+        telefone: clientTelefone,
+        cidade: clientCidade,
+        bairro: clientBairro,
+        numero: clientNumero,
+        complemento: clientComplemento,
+        fidelidade: clientFidelidade,
+      } = response.data.content[0];
 
-       const patientDtNascimento = dataNascimento.split('/').reverse().join('-')
+      const clientDtNascimento = dataNascimento.split('/').reverse().join('-')
 
-       setIdentifier(identifier)
-       setNome(patientNome)
-       setDtNascimento(patientDtNascimento)
-       setCpf(patientCpf)
-       setNsus(patientNsus)
-       setTelefone(patientTelefone)
-       setCidade(patientCidade)
-       setBairro(patientBairro)
-       setNumero(patientNumero)
-       setComplemento(patientComplemento)
+      setIdentifier(identifier);
+      setNome(clientNome);
+      setDtNascimento(clientDtNascimento);
+      setCpf(clientCpf);
+      setTelefone(clientTelefone);
+      setCidade(clientCidade);
+      setBairro(clientBairro);
+      setNumero(clientNumero);
+      setComplemento(clientComplemento);
+      setFidelidade(clientFidelidade);
     }) 
   }, [id])
 
-  useEffect(() => {
-    if (identifier !== undefined) {
-      api.get<SchedulesList>(
-        `agendamento/${identifier}`
-      ).then((response) => {
-        const result = response.data.content;
-        setSchedules(result);
-      }).catch(() => {
-        alert('Erro ao buscar agendamentos!')
-      })
-    }
-  }, [identifier])
+  // useEffect(() => {
+  //   if (identifier !== undefined) {
+  //     api.get<SchedulesList>(
+  //       `agendamento/${identifier}`
+  //     ).then((response) => {
+  //       const result = response.data.content;
+  //       setSchedules(result);
+  //     }).catch(() => {
+  //       alert('Erro ao buscar agendamentos!')
+  //     })
+  //   }
+  // }, [identifier])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
@@ -125,9 +125,8 @@ const User: React.FC = () => {
   function handleUpdateUser(e: FormEvent) {
     e.preventDefault();
 
-    api.put('pacientes/atualizarCadastro', {
-      nomePaciente: nome,
-      carteiraSUS: nsus,
+    api.put(`clientes/${identifier}`, {
+      nome,
       cpf,
       cidade,
       bairro,
@@ -135,6 +134,7 @@ const User: React.FC = () => {
       complemento,
       dataNascimento: dtNascimento,
       telefone,
+      fidelidade,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)
       alert('Cadastro atualizado com sucesso!')
@@ -184,15 +184,6 @@ const User: React.FC = () => {
                   mask={cpfMask}
                   disabled={isEditDisabled}/>
               </FormGroup>
-              <FormGroup gridArea='SU'>
-                <Input 
-                  type="text"
-                  label="nSUS"
-                  identifier="nSUS"
-                  value={nsus}
-                  onChange={setNsus}
-                  disabled={isEditDisabled}/>
-              </FormGroup>
               <FormGroup gridArea='FN'>
                 <Input 
                   type="text"
@@ -202,6 +193,16 @@ const User: React.FC = () => {
                   onChange={setTelefone}
                   mask={phoneMask}
                   disabled={isEditDisabled}/>
+              </FormGroup>
+              <FormGroup gridArea='FD'>
+                <Input 
+                  type="radio"
+                  label="Fidelidade"
+                  identifier="fidelidade"
+                  checked={fidelidade}
+                  onChange={setFidelidade}
+                  disabled={false}
+                />
               </FormGroup>
               <FormGroup gridArea='CD'>
                 <Input 
@@ -250,13 +251,13 @@ const User: React.FC = () => {
             <TableHead>
               <tr>
                 <th>SOLICITAÇÃO</th>
-                <th>ESPECIALIDADE</th>
+                <th>TIPO</th>
                 <th>DATA</th>
                 <th>STATUS</th>
               </tr>
             </TableHead>
             <TableBody>
-              {schedules?.map(scheduling => {
+              {/* {schedules?.map(scheduling => {
                 return (
                   <tr>
                     <td>{scheduling.id}</td>
@@ -270,7 +271,7 @@ const User: React.FC = () => {
                     <td>Marcado</td>
                   </tr>
                 )
-              })}
+              })} */}
             </TableBody>
           </Table>
         </>

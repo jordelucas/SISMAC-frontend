@@ -6,7 +6,7 @@ interface FormGroupProps {
 // NM -> Nome
 // NC -> Data de Nascimento
 // CP -> CPF
-// SU -> SUS
+// FD -> Fidelidade
 // FN -> Telefone
 // CD -> Cidade
 // BR -> Bairro
@@ -33,7 +33,7 @@ export const Grid = styled.div`
 
     grid-template-areas:
       'NM NM NC'
-      'CP SU FN'
+      'CP FN FD'
       'CD BR NU'
       'CO VZ VZ'
       'NV NV BT';
@@ -43,8 +43,17 @@ export const Grid = styled.div`
 export const FormGroup = styled.div<FormGroupProps>`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 
   grid-area: ${props => props.gridArea};
 
   position: relative;
+
+  > svg {
+    width: 4rem!important;
+    height: 4rem!important;
+    margin-left: 1rem;
+    fill: #103a53;
+    cursor: pointer;
+  }
 `

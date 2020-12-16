@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { 
   EventNote, 
-  LocalHospital, 
+  EventSeat, 
   PeopleAlt } from '@material-ui/icons/';
 
 import { Container, List, Item } from './styles';
@@ -21,14 +21,14 @@ const Home: React.FC = () => {
         </Item>
         <Item>
           <Link to="/management">
-            <LocalHospital />
-            <span>Consultas e exames</span>
+            <EventSeat />
+            <span>Barba e Cabelo</span>
           </Link>
         </Item>
         <Item>
           <Link to="/users">
             <PeopleAlt />
-            <span>Pacientes</span>
+            <span>Clientes</span>
           </Link>
         </Item>
       </List>

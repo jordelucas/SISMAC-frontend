@@ -68,7 +68,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
     <>
       <Typography>Informes o paciente</Typography>
       <Filter
-        patientsFiltered={handleFilteredPatients}
+        clientsFiltered={handleFilteredPatients}
         options={options}
         selectedOptionInFilter={selectedOption}
       />

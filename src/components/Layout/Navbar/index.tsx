@@ -5,7 +5,7 @@ import { StyledNavbar } from './styles';
 const Navbar: React.FC = () => {
     return (
         <StyledNavbar>
-            <span className="brand">SISMAC</span>
+            <span className="brand">SISBARBER</span>
           
             <div className="user-info">
                 <div className="welcome">

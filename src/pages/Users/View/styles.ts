@@ -6,7 +6,7 @@ interface FormGroupProps {
 // NM -> Nome
 // NC -> Data de Nascimento
 // CP -> CPF
-// SU -> SUS
+// FD -> Fidelidade
 // FN -> Telefone
 // CD -> Cidade
 // BR -> Bairro
@@ -33,7 +33,7 @@ export const Grid = styled.div`
 
     grid-template-areas:
       'NM NM NC'
-      'CP SU FN'
+      'CP FN FD'
       'CD BR NU'
       'CO VZ VZ'
       'NV NV BT';

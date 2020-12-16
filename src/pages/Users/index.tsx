@@ -12,28 +12,27 @@ import { Table, TableBody, TableHead } from '../../components/Table';
 
 import { ArrowForwardIcon } from './styles';
 
-interface Patient {
-  nomePaciente: string;
-  carteiraSUS: string;
+interface Client {
+  nomeCliente: string;
   cpf: string;
   cidade: string;
   bairro: string;
-  complemento: string;
+  complemento: string; 
   dataNascimento: string;
   telefone: string;
   numero: string;
+  fidelidade: boolean;
 }
 
-const Users: React.FC<Patient> = () => {
-  const [filteredPatients, setFilteredPatients] = useState<Patient[]>([])
+const Users: React.FC<Client> = () => {
+  const [filteredClients, setFilteredClients] = useState<Client[]>([])
 
-  function handleFilteredPatients(filteredPatients: Array<Patient>) {
-    setFilteredPatients(filteredPatients);
+  function handleFilteredClients(filteredClients: Array<Client>) {
+    setFilteredClients(filteredClients);
   }
 
   const options = {
     cpf: true,
-    sus: true,
     nome: true,
   }
 
@@ -44,33 +43,31 @@ const Users: React.FC<Patient> = () => {
           <BackButton link="/"/>
 
           <Header mb="2">
-            <Title text="Lista de pacientes" />
-            <Link to="/users/new">Adicionar paciente</Link>
+            <Title text="Lista de clientes" />
+            <Link to="/users/new">Adicionar cliente</Link>
           </Header>
 
-          <Filter patientsFiltered={handleFilteredPatients} options={options}/>
+          <Filter clientsFiltered={handleFilteredClients} options={options}/>
 
           <Table>
             <TableHead>
               <tr>
                 <th>NOME</th>
                 <th>CPF</th>
-                <th>SUS</th>
                 <th></th>
               </tr>
             </TableHead>
             <TableBody>
-              {filteredPatients.map((patient: Patient, index) => {
+              {filteredClients.map((cliente: Client, index) => {
                 return (
                   <tr key={index}>
-                    <td>{patient.nomePaciente}</td>
-                    <td>{patient.cpf}</td>
-                    <td>{patient.carteiraSUS}</td>
+                    <td>{cliente.nomeCliente}</td>
+                    <td>{cliente.cpf}</td>
                     <td>
                       <Link to={{
                         pathname: `user/${index}`,
                         state: {
-                          id: patient.cpf
+                          id: cliente.cpf
                         }
                       }}>
                         <ArrowForwardIcon />

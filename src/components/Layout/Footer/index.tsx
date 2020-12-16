@@ -10,7 +10,7 @@ const StyledFooter = styled.footer`
 const Footer: React.FC = () => {
     return (
         <StyledFooter>
-            <p>&copy; SISMAC 2020. Todos os direitos reservados</p>
+            <p>&copy; SISBARBER 2020. Todos os direitos reservados</p>
         </StyledFooter>  
     )
 }

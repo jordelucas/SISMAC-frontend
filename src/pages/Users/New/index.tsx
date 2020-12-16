@@ -21,19 +21,18 @@ const NewUser: React.FC = () => {
   const [nome, setNome] = useState('')
   const [dtNascimento, setDtNascimento] = useState('')
   const [cpf, setCpf] = useState('')
-  const [nsus, setNsus] = useState('')
   const [telefone, setTelefone] = useState('')
   const [cidade, setCidade] = useState('')
   const [bairro, setBairro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
+  const [fidelidade, setFidelidade] = useState(false)
 
   function handleCreateUser(e: FormEvent) {
     e.preventDefault();
 
-    api.post('pacientes', {
+    api.post('clientes', {
       nome,
-      carteiraSUS: nsus,
       cpf,
       cidade,
       bairro,
@@ -41,6 +40,7 @@ const NewUser: React.FC = () => {
       complemento,
       dataNascimento: dtNascimento,
       telefone,
+      fidelidade,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();
@@ -50,15 +50,15 @@ const NewUser: React.FC = () => {
   }
 
   function clearStates(){
-    setNome('')
-    setDtNascimento('')
-    setCpf('')
-    setNsus('')
-    setTelefone('')
-    setCidade('')
-    setBairro('')
-    setNumero('')
-    setComplemento('')
+    setNome('');
+    setDtNascimento('');
+    setCpf('');
+    setTelefone('');
+    setCidade('');
+    setBairro('');
+    setNumero('');
+    setComplemento('');
+    setFidelidade(false);
   }
 
   return (
@@ -66,7 +66,7 @@ const NewUser: React.FC = () => {
       <Wrapper>
         <>
           <BackButton link="/users"/>
-          <Title text="Novo paciente" />
+          <Title text="Novo cliente" />
 
           <Form onSubmit={handleCreateUser}>
             <Grid>
@@ -98,15 +98,6 @@ const NewUser: React.FC = () => {
                   mask={cpfMask}
                   disabled={false}/>
               </FormGroup>
-              <FormGroup gridArea='SU'>
-                <Input 
-                  type="text"
-                  label="nSUS"
-                  identifier="nSUS"
-                  value={nsus}
-                  onChange={setNsus}
-                  disabled={false}/>
-              </FormGroup>
               <FormGroup gridArea='FN'>
                 <Input 
                   type="text"
@@ -116,6 +107,16 @@ const NewUser: React.FC = () => {
                   onChange={setTelefone}
                   mask={phoneMask}
                   disabled={false}/>
+              </FormGroup>
+              <FormGroup gridArea='FD'>
+                <Input 
+                  type="radio"
+                  label="Fidelidade"
+                  identifier="fidelidade"
+                  checked={fidelidade}
+                  onChange={setFidelidade}
+                  disabled={false}
+                />
               </FormGroup>
               <FormGroup gridArea='CD'>
                 <Input 

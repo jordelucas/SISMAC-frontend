@@ -12,18 +12,17 @@ import {
   SearchIcon } from './styles';
 
 interface FilterProps {
-  patientsFiltered: Function;
+  clientsFiltered: Function;
   selectedOptionInFilter?: Function;
   options: OptionsProps;
 }
 
 interface OptionsProps {
   cpf: boolean;
-  sus: boolean;
   nome: boolean;
 }
 
-const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOptionInFilter }) => {
+const Filter: React.FC<FilterProps> = ({ clientsFiltered, options, selectedOptionInFilter }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
   const [textFilter, setTextFilter] = useState('');
@@ -47,19 +46,16 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOpti
       case 'CPF': 
         data = await filterByCPF()
         break;
-      case 'SUS': 
-        data = await filterBySUS()
-        break
     }
 
     if (selectedOptionInFilter) {
       selectedOptionInFilter(selectedOption)
     }
-    patientsFiltered(data)
+    clientsFiltered(data);
   }
 
   async function filterByNome(){
-    const response = await api.get('pacientes', {
+    const response = await api.get('clientes', {
       params: {
         nome: textFilter
       }
@@ -69,19 +65,9 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOpti
   }
 
   async function filterByCPF(){
-    const response = await api.get('pacientes', {
+    const response = await api.get('clientes', {
       params: {
         cpf: textFilter
-      }
-    })
-
-    return response.data.content;
-  }
-
-  async function filterBySUS(){
-    const response = await api.get('pacientes', {
-      params: {
-        carteiraSUS: textFilter
       }
     })
 
@@ -109,9 +95,6 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOpti
           )}
           {options.cpf && (
             <Option onClick={() => addFilter("CPF")}>CPF</Option>
-          )}
-          {options.sus && (
-            <Option onClick={() => addFilter("SUS")}>SUS</Option>
           )}
         </DropdownFilter>
       </Search>
