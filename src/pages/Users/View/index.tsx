@@ -41,16 +41,17 @@ interface Details {
   fidelidade: boolean;
 }
 
-// interface SchedulesList {
-//   content: Array<Schedules>
-// }
+interface SchedulesList {
+  content: Array<Schedules>
+}
 
-// interface Schedules {
-//   id: number,
-//   dataAgendamento: string,
-//   nomeExame: string,
-//   nomeEspecialidade: string,
-// }
+interface Schedules {
+  id: number,
+  dataAgendamento: string,
+  nomeCliente: string,
+  cabelo: boolean,
+  barba: boolean,
+}
 
 const User: React.FC = () => {
   const { state: patientId } = useLocation<LocationState>();
@@ -66,7 +67,7 @@ const User: React.FC = () => {
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
-  // const [schedules, setSchedules] = useState<Schedules[]>();
+  const [schedules, setSchedules] = useState<Schedules[]>();
   const [fidelidade, setFidelidade] = useState(false);
   
   const { id } = patientId || { id: { pathname: "/" } };
@@ -105,18 +106,18 @@ const User: React.FC = () => {
     }) 
   }, [id])
 
-  // useEffect(() => {
-  //   if (identifier !== undefined) {
-  //     api.get<SchedulesList>(
-  //       `agendamento/${identifier}`
-  //     ).then((response) => {
-  //       const result = response.data.content;
-  //       setSchedules(result);
-  //     }).catch(() => {
-  //       alert('Erro ao buscar agendamentos!')
-  //     })
-  //   }
-  // }, [identifier])
+  useEffect(() => {
+    if (identifier !== undefined) {
+      api.get<SchedulesList>(
+        `agendamento/${identifier}`
+      ).then((response) => {
+        const result = response.data.content;
+        setSchedules(result);
+      }).catch(() => {
+        alert('Erro ao buscar agendamentos!')
+      })
+    }
+  }, [identifier])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
@@ -257,21 +258,16 @@ const User: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {/* {schedules?.map(scheduling => {
+              {schedules?.map(scheduling => {
                 return (
                   <tr>
                     <td>{scheduling.id}</td>
-                    <td>
-                      {scheduling.nomeEspecialidade 
-                        ? scheduling.nomeEspecialidade 
-                        : scheduling.nomeExame
-                      }
-                    </td>
+                    <td>{scheduling.barba ? 'BARBA' : 'CABELO'}</td>
                     <td>{scheduling.dataAgendamento}</td>
                     <td>Marcado</td>
                   </tr>
                 )
-              })} */}
+              })}
             </TableBody>
           </Table>
         </>

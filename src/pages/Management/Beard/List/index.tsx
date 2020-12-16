@@ -89,10 +89,9 @@ const Beard: React.FC = () => {
                   <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
                   <td>
                     <Link to={{
-                      pathname: `/management/specialty/${id}/vacancy/${vacancy.id}`,
+                      pathname: `/management/beard/vacancy/${vacancy.id}`,
                       state: {
                         vacancyID: vacancy.id,
-                        specialityID: id,
                       }
                     }}>
                       <ArrowForwardIcon />

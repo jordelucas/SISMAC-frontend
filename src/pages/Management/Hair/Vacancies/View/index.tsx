@@ -35,8 +35,7 @@ interface Patient {
 
 interface DetailsPatientt {
   id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
+  nomeCliente: string;
   cpf: string;
   cidade: string;
   bairro: string;
@@ -75,7 +74,7 @@ const ViewPatientsExam: React.FC = () => {
 
   useEffect(() => {
     api.get<VacanciesProps>(
-      `vagas?consulta=false&especialidade_id=${ids.examID}`
+      `vagas?barba=false&cabelo=true`
     ).then((response) => {
       const { 
         content: listVacancies
@@ -96,7 +95,7 @@ const ViewPatientsExam: React.FC = () => {
   }, [ids.examID, ids.vacancyID]);
 
   useEffect(() => {
-    api.get<Patient>('pacientes').then((response) => {
+    api.get<Patient>('clientes').then((response) => {
       const patiensts = response.data.content;
       const solicitantes = idsSolicitantes.map(solicitante => patiensts.find(patient => patient.id === solicitante));
       
@@ -108,16 +107,15 @@ const ViewPatientsExam: React.FC = () => {
     <Content>
       <Wrapper>
         <>
-          <BackButton link={`/management/exams`}/>
+          <BackButton link={`/management/hair`}/>
           
-          <Title text={`Agendamentos - ${nomeExame} - ${vacancy?.data}`} />
+          <Title text={`Agendamentos - CABELO - ${vacancy?.data}`} />
 
           <Table>
             <TableHead>
               <tr>
                 <th>NOME</th>
-                <th>CPF</th>
-                <th>SUS</th>
+                <th>TELEFONE</th>
               </tr>
             </TableHead>
             <TableBody>
@@ -125,9 +123,8 @@ const ViewPatientsExam: React.FC = () => {
                 ? solicitantes.map((patient: DetailsPatientt | undefined, index) => {
                   return (
                     <tr key={index}>
-                      <td>{patient?.nomePaciente}</td>
-                      <td>{patient?.cpf}</td>
-                      <td>{patient?.carteiraSUS}</td>
+                      <td>{patient?.nomeCliente}</td>
+                      <td>{patient?.telefone}</td>
                     </tr>
                   )
                 }) : null

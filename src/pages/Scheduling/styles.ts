@@ -6,7 +6,6 @@ interface FormGroupProps {
 // NM -> Nome
 // NC -> Data de Nascimento
 // CP -> CPF
-// SU -> SUS
 // FN -> Telefone
 // VZ -> Espaço em branco';
 
@@ -14,7 +13,7 @@ export const Form = styled.form`
   margin: 2.5rem;
 `;
 
-export const PatientGrid = styled.div`
+export const ClientGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -25,8 +24,8 @@ export const PatientGrid = styled.div`
     gap: 20px;
 
     grid-template-areas:
-      'NM NM NC'
-      'CP SU FN'
+      'NM NC VZ'
+      'CP FN VZ'
       'NV NV BT';
   }
 `;
@@ -42,7 +41,7 @@ export const SolicitationGrid = styled.div`
     gap: 20px;
 
     grid-template-areas:
-      'TP OP VZ'
+      'TP VZ VZ'
       'VC VC VC';
   }
 `;

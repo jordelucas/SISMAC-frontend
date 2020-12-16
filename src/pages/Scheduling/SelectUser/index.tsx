@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button } from '../../../components/Button';
 import Filter from '../../../components/Filter';
 import Input from '../../../components/Input';
-import { cpfMask } from '../../../utils/Masks';
 
 import {
   Form, 
@@ -12,61 +11,58 @@ import {
 
 interface Patient {
   id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
+  nomeCliente: string;
   cpf: string;
   dataNascimento: string;
   telefone: string;
 }
 
 interface SelectUserProps {
-  setSelectedPatient: Function;
+  setSelectedClient: Function;
 }
 
-const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
+const SelectUser: React.FC<SelectUserProps> = ({ setSelectedClient }) => {
   const [filteredPatient, setFilteredPatient] = useState<Patient>();
   const [option, setOption] = useState<string>('')
 
   function handleFilteredPatients(filteredPatients: Array<Patient>) {
     const {
       id,
-      nomePaciente,
-      carteiraSUS,
+      nomeCliente,
       cpf,
       dataNascimento,
       telefone,
     } = filteredPatients[0];
     
-    const patient = {
+    const client = {
       id,
-      nomePaciente,
-      carteiraSUS,
+      nomeCliente,
       cpf,
       dataNascimento,
       telefone,
     }
 
-    setFilteredPatient(patient);
+    setFilteredPatient(client);
   }
 
   function selectedOption(selectedOptionText: string) {
+    console.log(option);
     setOption(selectedOptionText);
   }
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    setSelectedPatient(filteredPatient);
+    setSelectedClient(filteredPatient);
   }
 
   const options = {
     cpf: true,
-    sus: true,
     nome: false,
   }
   
   return (
     <>
-      <Typography>Informes o paciente</Typography>
+      <Typography>Informes o cliente</Typography>
       <Filter
         clientsFiltered={handleFilteredPatients}
         options={options}
@@ -82,7 +78,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                   type="text"
                   label="Nome"
                   identifier="nome"
-                  value={filteredPatient.nomePaciente}
+                  value={filteredPatient.nomeCliente}
                   disabled={true}/>
               </FormGroup>
               <FormGroup gridArea='NC'>
@@ -93,29 +89,6 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                   value={filteredPatient.dataNascimento}
                   disabled={true}/>
               </FormGroup>
-
-              {option === 'CPF' && (
-                <FormGroup gridArea='NU'>
-                  <Input 
-                    type="text"
-                    label="nSUS"
-                    identifier="nSUS"
-                    value={filteredPatient.carteiraSUS}
-                    disabled={true}/>
-                </FormGroup>
-              )}
-
-              {option === 'SUS' && (
-                <FormGroup gridArea='NU'>
-                  <Input 
-                    type="text"
-                    label="CPF"
-                    identifier="CPF"
-                    value={filteredPatient.cpf}
-                    mask={cpfMask}
-                    disabled={true}/>
-                </FormGroup>
-              )}
             </Grid>
 
             {<Button onClick={handleClick}>Continuar</Button>}

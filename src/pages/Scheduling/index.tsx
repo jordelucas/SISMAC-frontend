@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import BackButton from '../../components/BackButton';
 import { Button } from '../../components/Button';
 import Datalist from '../../components/Datalist';
@@ -15,28 +15,12 @@ import SelectUser from './SelectUser';
 import {
   Form, 
   FormGroup, 
-  PatientGrid,
+  ClientGrid,
   SolicitationGrid } from './styles';
 
-interface ExamProps {
+interface Client {
   id: number;
-  nomeExame: string;
-  autorizacao: boolean;
-}
-
-interface ExamArrayProps {
-  content: ExamProps[];
-}
-
-interface SpecialtyArrayProps {
-  id: number;
-  nomeEspecialidade: string;
-}
-
-interface Patient {
-  id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
+  nomeCliente: string;
   cpf: string;
   dataNascimento: string;
   telefone: string;
@@ -47,49 +31,22 @@ interface OptionsList {
   id: number;
 }
 
-const SPECIALTY_URL = "filaEspera/filaConsulta"
-const EXAM_URL = "filaEspera/filaExame"
+const BEARD_URL = "filaEspera/filaBarba"
+const HAIR_URL = "filaEspera/filaCabelo"
 
 const Scheduling: React.FC = () => {
-  const [selectedPatient, setSelectedPatient] = useState<Patient>();
+  const [selectedClient, setSelectedClient] = useState<Client>();
   const [choice, setChoice] = useState<OptionsList>();
-  const [optionSelected, setOptionSelected] = useState<OptionsList>();
-  const [optionsList, setOptionsList] = useState<OptionsList[]>();
-
-  useEffect(() => {
-    async function loadAllExams() {
-      const response = await api.get<ExamArrayProps>('exames');
-      const allExams = response.data.content.map(exam => {
-        return {name: exam.nomeExame, id: exam.id}
-      })
-      
-      setOptionsList(allExams);
-    }
-
-    async function loadAllSpecialties() {
-      const response = await api.get<SpecialtyArrayProps[]>('especialidades/todasEspecialidades');
-      const allSpecialty = response.data.map(specialty => {
-        return {name: specialty.nomeEspecialidade, id: specialty.id}
-      })
-      
-      setOptionsList(allSpecialty);
-    }
-
-    if (choice?.id === 1) {
-      loadAllExams();
-    } else if (choice?.id === 2) {
-      loadAllSpecialties();
-    }
-  }, [choice]);
   
   function handleScheduling(e: FormEvent) {
     e.preventDefault();
 
     if (choice?.id === 1) {
-      api.post(EXAM_URL, {
+      api.post(HAIR_URL, {
         user_id: 1,
-        paciente_id: selectedPatient?.id,
-        exame_id: optionSelected?.id,
+        cliente_id: selectedClient?.id,
+        cabelo: true,
+        barba: false,
       }).then(() => {
         alert('Agendamento realizado com sucesso!')
         clearStates();
@@ -97,10 +54,11 @@ const Scheduling: React.FC = () => {
         alert('Erro no agendamento!')
       })
     } else if (choice?.id === 2) {
-      api.post(SPECIALTY_URL, {
+      api.post(BEARD_URL, {
         user_id: 1,
-        paciente_id: selectedPatient?.id,
-        especialidade_id: optionSelected?.id,
+        cliente_id: selectedClient?.id,
+        cabelo: false,
+        barba: true,
       }).then(() => {
         alert('Agendamento realizado com sucesso!')
         clearStates();
@@ -113,27 +71,25 @@ const Scheduling: React.FC = () => {
   }
 
   function clearStates(){
-    setSelectedPatient(undefined);
+    setSelectedClient(undefined);
     setChoice(undefined);
-    setOptionSelected(undefined);
-    setOptionsList([]);
   }
 
-  function renderPatientData() {
+  function renderClientData() {
     return (
       <>
         <Header mt="2">
-          <Title text="Paciente" size="2" />
+          <Title text="Cliente" size="2" />
         </Header>
 
         <Form>
-          <PatientGrid>
+          <ClientGrid>
             <FormGroup gridArea='NM'>
               <Input 
                 type="text"
                 label="Nome"
                 identifier="nome"
-                value={selectedPatient?.nomePaciente}
+                value={selectedClient?.nomeCliente}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='NC'>
@@ -141,7 +97,7 @@ const Scheduling: React.FC = () => {
                 type="date"
                 label="Data de nascimento" 
                 identifier="dtNascimento"
-                value={selectedPatient?.dataNascimento}
+                value={selectedClient?.dataNascimento}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='CP'>
@@ -149,16 +105,8 @@ const Scheduling: React.FC = () => {
                 type="text"
                 label="CPF"
                 identifier="CPF"
-                value={selectedPatient?.cpf}
+                value={selectedClient?.cpf}
                 mask={cpfMask}
-                disabled={true}/>
-            </FormGroup>
-            <FormGroup gridArea='SU'>
-              <Input 
-                type="text"
-                label="nSUS"
-                identifier="nSUS"
-                value={selectedPatient?.carteiraSUS}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='FN'>
@@ -166,11 +114,11 @@ const Scheduling: React.FC = () => {
                 type="text"
                 label="Telefone"
                 identifier="telefone"
-                value={selectedPatient?.telefone}
+                value={selectedClient?.telefone}
                 mask={phoneMask}
                 disabled={true}/>
             </FormGroup>
-          </PatientGrid>
+          </ClientGrid>
         </Form>
       </>
     )
@@ -192,17 +140,7 @@ const Scheduling: React.FC = () => {
                 identifierList="exam_or_speciality"
                 label="Tipo da solicitação"
                 onChange={setChoice}
-                optionsList={[{name: 'Exame', id: 1}, {name: 'Consulta', id: 2}]}
-              />
-            </FormGroup>
-            <FormGroup gridArea='OP'>
-              <Datalist 
-                name="options"
-                identifier="options"
-                identifierList="scheduling_options"
-                label="Opções para agendamento"
-                onChange={setOptionSelected}
-                optionsList={optionsList}
+                optionsList={[{name: 'Cabelo', id: 1}, {name: 'Barba', id: 2}]}
               />
             </FormGroup>
           </SolicitationGrid>
@@ -220,11 +158,11 @@ const Scheduling: React.FC = () => {
           <BackButton link="/"/>
           <Title text="Novo agendamento" align="center"/>
 
-          {!selectedPatient ? (
-            <SelectUser setSelectedPatient={setSelectedPatient}/>
+          {!selectedClient ? (
+            <SelectUser setSelectedClient={setSelectedClient}/>
           ) : (
             <>
-              {renderPatientData()}
+              {renderClientData()}
 
               {renderSchedulingChoice()}
             </>

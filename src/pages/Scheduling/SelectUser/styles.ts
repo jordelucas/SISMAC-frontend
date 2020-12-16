@@ -5,7 +5,6 @@ interface FormGroupProps {
 }
 // NM -> Nome
 // NC -> Data de Nascimento
-// NU -> CPF ou SUS
 // VZ -> Espaço em branco';
 
 export const Form = styled.form`
@@ -26,7 +25,7 @@ export const Grid = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
 
     grid-template-areas:
-      'NM NC NU'
+      'NM NC VZ'
       'NV NV BT';
   }
 `;
