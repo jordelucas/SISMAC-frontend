@@ -45,25 +45,12 @@ interface DetailsPatientt {
   numero: string;
 }
 
-const ViewPatientsExam: React.FC = () => {
+const ViewPatientsHair: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
-  const [nomeExame, setNomeExame] = useState('')
   const [vacancy, setVacancy] = useState<Details>()
   const [idsSolicitantes, setIdsSolicitantes] = useState<number[]>([])
   const [solicitantes, setSolicitantes] = useState<(DetailsPatientt | undefined)[]>([])
   
-  useEffect(() => {
-    api.get<ExamProps>(
-      `exames/${ids.examID}`
-    ).then((response) => {
-      const { 
-        nomeExame: examNome,
-       } = response.data;
-
-       setNomeExame(examNome);
-    }) 
-  }, [ids.examID]);
-
   useEffect(() => {
     api.get(
       `agendamento/vaga/${ids.vacancyID}`
@@ -137,4 +124,4 @@ const ViewPatientsExam: React.FC = () => {
   );
 }
 
-export default ViewPatientsExam;
+export default ViewPatientsHair;

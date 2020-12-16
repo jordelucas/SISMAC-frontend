@@ -44,9 +44,8 @@ interface DetailsPatientt {
   numero: string;
 }
 
-const ViewPatientsSpecialty: React.FC = () => {
+const ViewPatientsBeard: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
-  const [nomeEspecialidade, setNomeEspecialidade] = useState('')
   const [vacancy, setVacancy] = useState<Details>()
   const [idsSolicitantes, setIdsSolicitantes] = useState<number[]>([])
   const [solicitantes, setSolicitantes] = useState<(DetailsPatientt | undefined)[]>([])
@@ -124,4 +123,4 @@ const ViewPatientsSpecialty: React.FC = () => {
   );
 }
 
-export default ViewPatientsSpecialty;
+export default ViewPatientsBeard;

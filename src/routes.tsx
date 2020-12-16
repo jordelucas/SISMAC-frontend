@@ -13,8 +13,8 @@ import Hair from './pages/Management/Hair/List'
 import NewVacanciesBeard from './pages/Management/Beard/Vacancies/New'
 import NewVacanciesHair from './pages/Management/Hair/Vacancies/New'
 import Scheduling from './pages/Scheduling'
-import ViewPatientsSpecialty from './pages/Management/Beard/Vacancies/View'
-import ViewPatientsExam from './pages/Management/Hair/Vacancies/View'
+import ViewPatientsBeard from './pages/Management/Beard/Vacancies/View'
+import ViewPatientsHair from './pages/Management/Hair/Vacancies/View'
 
 const Routes = () => {
   return (
@@ -29,10 +29,10 @@ const Routes = () => {
           
           <Route component={Management} path="/management" exact/>
           <Route component={Beard} path="/management/beard" exact/>
-          <Route component={ViewPatientsSpecialty} path="/management/beard/vacancy/:id" exact/>
+          <Route component={ViewPatientsBeard} path="/management/beard/vacancy/:id" exact/>
           <Route component={NewVacanciesBeard} path="/management/beard/vacancies/new" exact/>
           <Route component={Hair} path="/management/hair" exact/>
-          <Route component={ViewPatientsExam} path="/management/hair/vacancy/:id" exact/>
+          <Route component={ViewPatientsHair} path="/management/hair/vacancy/:id" exact/>
           <Route component={NewVacanciesHair} path="/management/hair/vacancies/new" exact/>
           
           <Route component={Scheduling} path="/scheduling" exact/>
