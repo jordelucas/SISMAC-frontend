@@ -15,7 +15,7 @@ import { cpfMask, phoneMask } from '../../../utils/Masks';
 import {
   Form, 
   FormGroup, 
-  Grid } from './styles';
+  Grid } from '../components/styles';
 import api from '../../../services/api';
 
 interface LocationState {

@@ -15,7 +15,7 @@ import {
   Form, 
   FormGroup, 
   Grid
-} from './styles';
+} from '../components/styles';
 
 const NewUser: React.FC = () => {
   const [nome, setNome] = useState('')

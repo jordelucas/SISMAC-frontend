@@ -42,7 +42,7 @@ export const Search = styled.div`
 `
 
 const IconCSS = css`
-  width: 2/2rem;
+  width: 2.2rem;
   height: 2.2rem;
   border-radius: 50%;
 `
