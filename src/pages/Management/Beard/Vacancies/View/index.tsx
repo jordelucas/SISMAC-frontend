@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import Content from '../../../../../../components/Layout/Content';
-import Wrapper from '../../../../../../components/Layout/Wrapper';
-import BackButton from '../../../../../../components/BackButton';
-import Title from '../../../../../../components/Title';
+import Content from '../../../../../components/Layout/Content';
+import Wrapper from '../../../../../components/Layout/Wrapper';
+import BackButton from '../../../../../components/BackButton';
+import Title from '../../../../../components/Title';
 import { useLocation } from 'react-router-dom';
-import api from '../../../../../../services/api';
-import { Table, TableBody, TableHead } from '../../../../../../components/Table';
+import api from '../../../../../services/api';
+import { Table, TableBody, TableHead } from '../../../../../components/Table';
 
 interface LocationState {
   vacancyID: number;

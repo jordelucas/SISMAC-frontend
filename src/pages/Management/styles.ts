@@ -5,7 +5,7 @@ export const List = styled.ul`
   display: grid;
   justify-content: center;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   margin: auto;
   list-style: none;
 `;
@@ -46,16 +46,3 @@ export const Item = styled.li`
     }
   }
 `;
-
-export const Quantity = styled.div`
-  display:  flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  color: #fff;
-  background: #ff4f4f;
-  font-size: 0.8rem;
-  margin-left: 1rem;
-  border-radius: 50%;
-`

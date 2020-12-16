@@ -6,7 +6,7 @@ import Content from '../../components/Layout/Content';
 import Wrapper from '../../components/Layout/Wrapper';
 import Title from '../../components/Title';
 
-import { List, Item, Quantity } from './styles';
+import { List, Item } from './styles';
 
 const Management: React.FC = () => {
   return (
@@ -18,21 +18,13 @@ const Management: React.FC = () => {
 
           <List>
             <Item>
-              <Link to="/management/specialties">
-                <span>Especialidades</span>
+              <Link to="/management/beard">
+                <span>Barba</span>
               </Link>
             </Item>
             <Item>
-              <Link to="/management/exams">
-                <span>Exames</span>
-              </Link>
-            </Item>
-            <Item>
-              <Link to="/">
-                <span>
-                  Autorizações 
-                  <Quantity>45</Quantity>
-                </span>
+              <Link to="/management/hair">
+                <span>Cabelo</span>
               </Link>
             </Item>
           </List>

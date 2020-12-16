@@ -8,17 +8,13 @@ import Users from './pages/Users'
 import NewUser from './pages/Users/New'
 import User from './pages/Users/View'
 import Management from './pages/Management'
-import Specialties from './pages/Management/Specialty/List'
-import Exams from './pages/Management/Exam/List'
-import NewExam from './pages/Management/Exam/New'
-import NewSpecialty from './pages/Management/Specialty/New'
-import Specialty from './pages/Management/Specialty/View'
-import Exam from './pages/Management/Exam/View'
-import NewVacanciesSpecialty from './pages/Management/Specialty/View/Vacancies/New'
-import NewVacanciesExam from './pages/Management/Exam/View/Vacancies/New'
+import Beard from './pages/Management/Beard/List'
+import Hair from './pages/Management/Hair/List'
+import NewVacanciesBeard from './pages/Management/Beard/Vacancies/New'
+import NewVacanciesHair from './pages/Management/Hair/Vacancies/New'
 import Scheduling from './pages/Scheduling'
-import ViewPatientsSpecialty from './pages/Management/Specialty/View/Vacancies/View'
-import ViewPatientsExam from './pages/Management/Exam/View/Vacancies/View'
+import ViewPatientsSpecialty from './pages/Management/Beard/Vacancies/View'
+import ViewPatientsExam from './pages/Management/Hair/Vacancies/View'
 
 const Routes = () => {
   return (
@@ -32,16 +28,12 @@ const Routes = () => {
           <Route component={User} path="/user/:id" exact/>
           
           <Route component={Management} path="/management" exact/>
-          <Route component={Specialties} path="/management/specialties" exact/>
-          <Route component={NewSpecialty} path="/management/specialties/new" exact/>
-          <Route component={Specialty} path="/management/specialty/:id" exact/>
+          <Route component={Beard} path="/management/beard" exact/>
           <Route component={ViewPatientsSpecialty} path="/management/specialty/:id/vacancy/:id" exact/>
-          <Route component={NewVacanciesSpecialty} path="/management/specialties/vacancies/new" exact/>
-          <Route component={Exams} path="/management/exams" exact/>
-          <Route component={NewExam} path="/management/exams/new" exact/>
+          <Route component={NewVacanciesBeard} path="/management/beard/vacancies/new" exact/>
+          <Route component={Hair} path="/management/hair" exact/>
           <Route component={ViewPatientsExam} path="/management/exam/:id/vacancy/:id" exact/>
-          <Route component={NewVacanciesExam} path="/management/exams/vacancies/new" exact/>
-          <Route component={Exam} path="/management/exam/:id" exact/>
+          <Route component={NewVacanciesHair} path="/management/hair/vacancies/new" exact/>
           
           <Route component={Scheduling} path="/scheduling" exact/>
         </>

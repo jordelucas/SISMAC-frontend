@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
@@ -8,25 +8,15 @@ import Wrapper from '../../../../components/Layout/Wrapper';
 import Header from '../../../../components/Layout/Header';
 import Title from '../../../../components/Title';
 import BackButton from '../../../../components/BackButton';
-import { Button } from '../../../../components/Button';
-import Input from '../../../../components/Input';
 import { Table, TableBody, TableHead } from '../../../../components/Table';
 import { ArrowForwardIcon } from './styles';
 
-import {
-  Form, 
-  FormGroup, 
-  Grid } from './styles';
 import api from '../../../../services/api';
 
 interface LocationState {
   id: {
     pathname: string;
   };
-}
-
-interface SpecialtyProps {
-  nomeEspecialidade: string;
 }
 
 interface VacanciesProps {
@@ -40,31 +30,16 @@ interface Details {
   vagasRestantes: number,
 }
 
-const Specialty: React.FC = () => {
+const Beard: React.FC = () => {
   const { state: specialtyId } = useLocation<LocationState>();
 
-  const [isEditDisabled, setIsEditDisabled] = useState(true)
-
-  const [nome, setNome] = useState('')
   const [vacancies, setVacancies] = useState<Details[]>()
   
   const { id } = specialtyId || { id: { pathname: "/" } };
 
   useEffect(() => {
-    api.get<SpecialtyProps>(
-      `especialidades/${id}`
-    ).then((response) => {
-      const { 
-        nomeEspecialidade: specialtyNome,
-       } = response.data;
-
-       setNome(specialtyNome)
-    }) 
-  }, [id])
-
-  useEffect(() => {
     api.get<VacanciesProps>(
-      `vagas?consulta=true&especialidade_id=${id}`
+      `vagas?barba=true&cabelo=false`
     ).then((response) => {
       const { 
         content: listVacancies
@@ -79,59 +54,21 @@ const Specialty: React.FC = () => {
 
        setVacancies(filteredVacancies)
     }) 
-  }, [id])
-
-  function changeDisable() {
-    setIsEditDisabled(prevState => !prevState)
-  }
-
-  function handleUpdateSpecialty(e: FormEvent) {
-    e.preventDefault();
-
-    api.put(`especialidades/atualizarEspecialidade/${id}`, {
-      nomeEspecialidade: nome,
-    }).then(() => {
-      setIsEditDisabled(prevState => !prevState)
-      alert('Cadastro atualizado com sucesso!')
-    }).catch(() => {
-      alert('Erro na atualização do cadastro!')
-    })
-  }
+  }, [])
 
   return (
     <Content>
       <Wrapper>
         <>
-          <BackButton link="/management/specialties"/>
+          <BackButton link="/management"/>
 
           <Header>
-            <Title text="Dados da especialidade" />
-            <button onClick={changeDisable} disabled={!isEditDisabled}>Editar</button>
-          </Header>
-
-          <Form onSubmit={handleUpdateSpecialty}>
-            <Grid>
-              <FormGroup gridArea='NM'>
-                <Input 
-                  type="text"
-                  label="Nome"
-                  identifier="nome"
-                  value={nome}
-                  onChange={setNome}
-                  disabled={isEditDisabled}/>
-              </FormGroup>
-            </Grid>
-
-            {!isEditDisabled && <Button type="submit">Salvar alterações</Button>}
-          </Form>
-
-          <Header>
-            <Title text="Lista de vagas" />
+            <Title text="Gerenciamento de Barba" />
             <Link 
               to={{
-                pathname: `/management/specialties/vacancies/new`,
+                pathname: `/management/beard/vacancies/new`,
                 state: {
-                  id,
+                  // id,
                 }
               }}
             >Adicionar vagas</Link>
@@ -171,4 +108,4 @@ const Specialty: React.FC = () => {
   );
 }
 
-export default Specialty;
+export default Beard;
