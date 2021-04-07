@@ -33,13 +33,13 @@ const NewUser: React.FC = () => {
 
     api.post('pacientes', {
       nome,
-      carteiraSUS: nsus,
+      nsus,
       cpf,
       cidade,
       bairro,
       numero,
       complemento,
-      dataNascimento: dtNascimento,
+      dtNascimento,
       telefone,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')

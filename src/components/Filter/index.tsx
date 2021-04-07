@@ -65,7 +65,7 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOpti
       }
     })
 
-    return response.data.content;
+    return response.data;
   }
 
   async function filterByCPF(){
@@ -75,17 +75,23 @@ const Filter: React.FC<FilterProps> = ({ patientsFiltered, options, selectedOpti
       }
     })
 
-    return response.data.content;
+    let result = [];
+    result.push(response.data);
+
+    return result;
   }
 
   async function filterBySUS(){
     const response = await api.get('pacientes', {
       params: {
-        carteiraSUS: textFilter
+        nsus: textFilter
       }
     })
 
-    return response.data.content;
+    let result = [];
+    result.push(response.data);
+
+    return result;
   }
   
   return (
