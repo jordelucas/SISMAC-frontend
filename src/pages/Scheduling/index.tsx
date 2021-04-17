@@ -26,8 +26,8 @@ interface OptionsList {
   id: string;
 }
 
-const SPECIALTY_URL = "filaEspera/filaConsulta"
-const EXAM_URL = "filaEspera/filaExame"
+const SPECIALTY_URL = "filaConsultas"
+const EXAM_URL = "filaExames"
 
 const Scheduling: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
@@ -66,7 +66,6 @@ const Scheduling: React.FC = () => {
 
     if (choice?.id === '1') {
       api.post(EXAM_URL, {
-        user_id: 1,
         paciente_id: selectedPatient?.id,
         exame_id: optionSelected?.id,
       }).then(() => {
@@ -77,9 +76,8 @@ const Scheduling: React.FC = () => {
       })
     } else if (choice?.id === '2') {
       api.post(SPECIALTY_URL, {
-        user_id: 1,
         paciente_id: selectedPatient?.id,
-        especialidade_id: optionSelected?.id,
+        consulta_id: optionSelected?.id,
       }).then(() => {
         alert('Agendamento realizado com sucesso!')
         clearStates();
