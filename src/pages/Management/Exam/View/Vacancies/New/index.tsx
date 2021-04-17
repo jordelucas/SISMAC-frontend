@@ -16,15 +16,12 @@ import {
   FormGroup, 
   Grid
 } from './styles';
+import { ExamProps } from '../../../../../../Models/Exam';
 
 interface LocationState {
   id: {
     pathname: string;
   };
-}
-
-interface ExamProps {
-  nome: string;
 }
 
 const NewVacanciesExam: React.FC = () => {

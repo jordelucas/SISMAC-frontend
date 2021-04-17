@@ -6,16 +6,12 @@ import Header from '../../../../components/Layout/Header';
 import Wrapper from '../../../../components/Layout/Wrapper';
 import { Table, TableBody, TableHead } from '../../../../components/Table';
 import Title from '../../../../components/Title';
+import { ExamProps } from '../../../../Models/Exam';
 import api from '../../../../services/api';
 import { ArrowForwardIcon } from './styles';
 
-interface ExamsProps {
-  id: number;
-  nome: string
-}
-
 const Exams: React.FC = () => {
-  const [exams, setExams] = useState<ExamsProps[]>()
+  const [exams, setExams] = useState<ExamProps[]>()
 
   useEffect(() => {
     async function loadAllExams() {

@@ -8,14 +8,11 @@ import { useLocation } from 'react-router-dom';
 import api from '../../../../../../services/api';
 import { Table, TableBody, TableHead } from '../../../../../../components/Table';
 import { Patient } from '../../../../../../Models/Patient';
+import { ExamProps } from '../../../../../../Models/Exam';
 
 interface LocationState {
   vacancyID: number;
   examID: number;
-}
-
-interface ExamProps {
-  nomeExame: string;
 }
 
 interface VacanciesProps {
@@ -41,7 +38,7 @@ const ViewPatientsExam: React.FC = () => {
       `exames/${ids.examID}`
     ).then((response) => {
       const { 
-        nomeExame: examNome,
+        nome: examNome,
        } = response.data;
 
        setNomeExame(examNome);

@@ -18,21 +18,13 @@ import {
   FormGroup, 
   Grid } from './styles';
 import api from '../../../../services/api';
+import { ExamProps } from '../../../../Models/Exam';
 
 interface LocationState {
   id: {
     pathname: string;
   };
 }
-
-interface ExamProps {
-  nome: string;
-  autorizacao: boolean;
-}
-
-// interface VacanciesProps {
-//   content: Details[];
-// }
 
 interface VacanciesProps {
   id: number,
