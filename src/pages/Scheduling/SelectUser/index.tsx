@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../../../components/Button';
 import Filter from '../../../components/Filter';
 import Input from '../../../components/Input';
+import { Patient } from '../../../Models/Patient';
 import { cpfMask } from '../../../utils/Masks';
 
 import {
@@ -9,16 +10,6 @@ import {
   FormGroup, 
   Grid,
   Typography } from './styles';
-
-interface Patient {
-  id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
-  cpf: string;
-  dataNascimento: string;
-  telefone: string;
-}
-
 interface SelectUserProps {
   setSelectedPatient: Function;
 }
@@ -28,25 +19,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
   const [option, setOption] = useState<string>('')
 
   function handleFilteredPatients(filteredPatients: Array<Patient>) {
-    const {
-      id,
-      nomePaciente,
-      carteiraSUS,
-      cpf,
-      dataNascimento,
-      telefone,
-    } = filteredPatients[0];
-    
-    const patient = {
-      id,
-      nomePaciente,
-      carteiraSUS,
-      cpf,
-      dataNascimento,
-      telefone,
-    }
-
-    setFilteredPatient(patient);
+    setFilteredPatient(filteredPatients[0]);
   }
 
   function selectedOption(selectedOptionText: string) {
@@ -82,7 +55,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                   type="text"
                   label="Nome"
                   identifier="nome"
-                  value={filteredPatient.nomePaciente}
+                  value={filteredPatient.nome}
                   disabled={true}/>
               </FormGroup>
               <FormGroup gridArea='NC'>
@@ -90,7 +63,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                   type="date"
                   label="Data de nascimento" 
                   identifier="dtNascimento"
-                  value={filteredPatient.dataNascimento}
+                  value={filteredPatient.dtNascimento}
                   disabled={true}/>
               </FormGroup>
 
@@ -100,7 +73,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                     type="text"
                     label="nSUS"
                     identifier="nSUS"
-                    value={filteredPatient.carteiraSUS}
+                    value={filteredPatient.nsus}
                     disabled={true}/>
                 </FormGroup>
               )}

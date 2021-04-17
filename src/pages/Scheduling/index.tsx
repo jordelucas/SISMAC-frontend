@@ -8,6 +8,7 @@ import Content from '../../components/Layout/Content';
 import Header from '../../components/Layout/Header';
 import Wrapper from '../../components/Layout/Wrapper';
 import Title from '../../components/Title';
+import { Patient } from '../../Models/Patient';
 import api from '../../services/api';
 import { cpfMask, phoneMask } from '../../utils/Masks';
 import SelectUser from './SelectUser';
@@ -31,15 +32,6 @@ interface ExamArrayProps {
 interface SpecialtyArrayProps {
   id: number;
   nomeEspecialidade: string;
-}
-
-interface Patient {
-  id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
-  cpf: string;
-  dataNascimento: string;
-  telefone: string;
 }
 
 interface OptionsList {
@@ -133,7 +125,7 @@ const Scheduling: React.FC = () => {
                 type="text"
                 label="Nome"
                 identifier="nome"
-                value={selectedPatient?.nomePaciente}
+                value={selectedPatient?.nome}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='NC'>
@@ -141,7 +133,7 @@ const Scheduling: React.FC = () => {
                 type="date"
                 label="Data de nascimento" 
                 identifier="dtNascimento"
-                value={selectedPatient?.dataNascimento}
+                value={selectedPatient?.dtNascimento}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='CP'>
@@ -158,7 +150,7 @@ const Scheduling: React.FC = () => {
                 type="text"
                 label="nSUS"
                 identifier="nSUS"
-                value={selectedPatient?.carteiraSUS}
+                value={selectedPatient?.nsus}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='FN'>

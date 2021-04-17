@@ -11,19 +11,7 @@ import Filter from '../../components/Filter';
 import { Table, TableBody, TableHead } from '../../components/Table';
 
 import { ArrowForwardIcon } from './styles';
-
-interface Patient {
-  id: string;
-  nome: string;
-  nsus: string;
-  cpf: string;
-  cidade: string;
-  bairro: string;
-  complemento: string;
-  dataNascimento: string;
-  telefone: string;
-  numero: string;
-}
+import { Patient } from '../../Models/Patient';
 
 const Users: React.FC<Patient> = () => {
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([])

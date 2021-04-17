@@ -7,6 +7,7 @@ import Title from '../../../../../../components/Title';
 import { useLocation } from 'react-router-dom';
 import api from '../../../../../../services/api';
 import { Table, TableBody, TableHead } from '../../../../../../components/Table';
+import { Patient } from '../../../../../../Models/Patient';
 
 interface LocationState {
   vacancyID: number;
@@ -28,30 +29,12 @@ interface Details {
   vagasRestantes: number,
 }
 
-
-interface Patient {
-  content: Array<DetailsPatientt>
-}
-
-interface DetailsPatientt {
-  id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
-  cpf: string;
-  cidade: string;
-  bairro: string;
-  complemento: string;
-  dataNascimento: string;
-  telefone: string;
-  numero: string;
-}
-
 const ViewPatientsExam: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
   const [nomeExame, setNomeExame] = useState('')
   const [vacancy, setVacancy] = useState<Details>()
   const [idsSolicitantes, setIdsSolicitantes] = useState<number[]>([])
-  const [solicitantes, setSolicitantes] = useState<(DetailsPatientt | undefined)[]>([])
+  const [solicitantes, setSolicitantes] = useState<(Patient | undefined)[]>([])
   
   useEffect(() => {
     api.get<ExamProps>(
@@ -96,8 +79,8 @@ const ViewPatientsExam: React.FC = () => {
   }, [ids.examID, ids.vacancyID]);
 
   useEffect(() => {
-    api.get<Patient>('pacientes').then((response) => {
-      const patiensts = response.data.content;
+    api.get<Patient[]>('pacientes').then((response) => {
+      const patiensts = response.data;
       const solicitantes = idsSolicitantes.map(solicitante => patiensts.find(patient => patient.id === solicitante));
       
       setSolicitantes(solicitantes);
@@ -122,12 +105,12 @@ const ViewPatientsExam: React.FC = () => {
             </TableHead>
             <TableBody>
               {solicitantes
-                ? solicitantes.map((patient: DetailsPatientt | undefined, index) => {
+                ? solicitantes.map((patient: Patient | undefined, index) => {
                   return (
                     <tr key={index}>
-                      <td>{patient?.nomePaciente}</td>
+                      <td>{patient?.nome}</td>
                       <td>{patient?.cpf}</td>
-                      <td>{patient?.carteiraSUS}</td>
+                      <td>{patient?.nsus}</td>
                     </tr>
                   )
                 }) : null

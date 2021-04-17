@@ -17,28 +17,12 @@ import {
   FormGroup, 
   Grid } from './styles';
 import api from '../../../services/api';
+import { Patient } from '../../../Models/Patient';
 
 interface LocationState {
   id: {
     pathname: string;
   };
-}
-
-// interface Patient {
-//   content: Array<Details>
-// }
-
-interface Patient {
-  id: number;
-  nome: string;
-  nsus: string;
-  cpf: string;
-  cidade: string;
-  bairro: string;
-  complemento: string;
-  dtNascimento: string;
-  telefone: string;
-  numero: string;
 }
 
 interface SchedulesList {
