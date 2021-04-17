@@ -10,18 +10,14 @@ import { Table, TableBody, TableHead } from '../../../../components/Table';
 import { ArrowForwardIcon } from './styles';
 
 import api from '../../../../services/api';
-
-interface SpecialtiesProps {
-  id: number;
-  nomeEspecialidade: string
-}
+import { SpecialtyProps } from '../../../../Models/Specialty';
 
 const Specialties: React.FC = () => {
-  const [specialties, setSpecialties] = useState<SpecialtiesProps[]>()
+  const [specialties, setSpecialties] = useState<SpecialtyProps[]>()
 
   useEffect(() => {
     async function loadAllSpecialties() {
-      const response = await api.get('especialidades/todasEspecialidades');
+      const response = await api.get('consultas');
       setSpecialties(response.data)
     }
 
@@ -47,10 +43,10 @@ const Specialties: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {specialties?.map((specialty: SpecialtiesProps, index) => {
+              {specialties?.map((specialty: SpecialtyProps, index) => {
                 return (
                   <tr key={specialty.id}>
-                    <td style={{ width: '100%' }}>{specialty.nomeEspecialidade}</td>
+                    <td style={{ width: '100%' }}>{specialty.nome}</td>
                     <td>
                       <Link to={{
                         pathname: `/management/specialty/${specialty.id}`,

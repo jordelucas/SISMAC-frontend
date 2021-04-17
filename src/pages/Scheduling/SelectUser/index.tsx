@@ -63,7 +63,7 @@ const SelectUser: React.FC<SelectUserProps> = ({ setSelectedPatient }) => {
                   type="date"
                   label="Data de nascimento" 
                   identifier="dtNascimento"
-                  value={filteredPatient.dtNascimento}
+                  value={filteredPatient.dtNascimento.split('T')[0]}
                   disabled={true}/>
               </FormGroup>
 

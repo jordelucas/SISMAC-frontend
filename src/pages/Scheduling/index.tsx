@@ -8,7 +8,9 @@ import Content from '../../components/Layout/Content';
 import Header from '../../components/Layout/Header';
 import Wrapper from '../../components/Layout/Wrapper';
 import Title from '../../components/Title';
+import { ExamProps } from '../../Models/Exam';
 import { Patient } from '../../Models/Patient';
+import { SpecialtyProps } from '../../Models/Specialty';
 import api from '../../services/api';
 import { cpfMask, phoneMask } from '../../utils/Masks';
 import SelectUser from './SelectUser';
@@ -19,24 +21,9 @@ import {
   PatientGrid,
   SolicitationGrid } from './styles';
 
-interface ExamProps {
-  id: number;
-  nomeExame: string;
-  autorizacao: boolean;
-}
-
-interface ExamArrayProps {
-  content: ExamProps[];
-}
-
-interface SpecialtyArrayProps {
-  id: number;
-  nomeEspecialidade: string;
-}
-
 interface OptionsList {
   name: string;
-  id: number;
+  id: string;
 }
 
 const SPECIALTY_URL = "filaEspera/filaConsulta"
@@ -50,26 +37,26 @@ const Scheduling: React.FC = () => {
 
   useEffect(() => {
     async function loadAllExams() {
-      const response = await api.get<ExamArrayProps>('exames');
-      const allExams = response.data.content.map(exam => {
-        return {name: exam.nomeExame, id: exam.id}
+      const response = await api.get<ExamProps[]>('exames');
+      const allExams = response.data.map(exam => {
+        return {name: exam.nome, id: exam.id}
       })
       
       setOptionsList(allExams);
     }
 
     async function loadAllSpecialties() {
-      const response = await api.get<SpecialtyArrayProps[]>('especialidades/todasEspecialidades');
+      const response = await api.get<SpecialtyProps[]>('consultas');
       const allSpecialty = response.data.map(specialty => {
-        return {name: specialty.nomeEspecialidade, id: specialty.id}
+        return {name: specialty.nome, id: specialty.id}
       })
       
       setOptionsList(allSpecialty);
     }
 
-    if (choice?.id === 1) {
+    if (choice?.id === '1') {
       loadAllExams();
-    } else if (choice?.id === 2) {
+    } else if (choice?.id === '2') {
       loadAllSpecialties();
     }
   }, [choice]);
@@ -77,7 +64,7 @@ const Scheduling: React.FC = () => {
   function handleScheduling(e: FormEvent) {
     e.preventDefault();
 
-    if (choice?.id === 1) {
+    if (choice?.id === '1') {
       api.post(EXAM_URL, {
         user_id: 1,
         paciente_id: selectedPatient?.id,
@@ -88,7 +75,7 @@ const Scheduling: React.FC = () => {
       }).catch(() => {
         alert('Erro no agendamento!')
       })
-    } else if (choice?.id === 2) {
+    } else if (choice?.id === '2') {
       api.post(SPECIALTY_URL, {
         user_id: 1,
         paciente_id: selectedPatient?.id,
@@ -133,7 +120,7 @@ const Scheduling: React.FC = () => {
                 type="date"
                 label="Data de nascimento" 
                 identifier="dtNascimento"
-                value={selectedPatient?.dtNascimento}
+                value={selectedPatient?.dtNascimento.split('T')[0]}
                 disabled={true}/>
             </FormGroup>
             <FormGroup gridArea='CP'>
@@ -184,7 +171,7 @@ const Scheduling: React.FC = () => {
                 identifierList="exam_or_speciality"
                 label="Tipo da solicitação"
                 onChange={setChoice}
-                optionsList={[{name: 'Exame', id: 1}, {name: 'Consulta', id: 2}]}
+                optionsList={[{name: 'Exame', id: '1'}, {name: 'Consulta', id: '2'}]}
               />
             </FormGroup>
             <FormGroup gridArea='OP'>

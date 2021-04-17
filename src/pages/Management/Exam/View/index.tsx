@@ -153,7 +153,7 @@ const Exam: React.FC = () => {
               {vacancies?.map(vacancy => (
                 <tr key={vacancy.id}>
                   <td>{vacancy.dataExame}</td>
-                  <td>{vacancy.quantidade - vacancy.disponivel}/{vacancy.quantidade}</td>
+                  <td>{`${vacancy.quantidade - vacancy.disponivel}/${vacancy.quantidade}`}</td>
                   <td>
                     <Link to={{
                       pathname: `/management/exam/${id}/vacancy/${vacancy.id}`,

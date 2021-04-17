@@ -20,8 +20,8 @@ const NewSpecialty: React.FC = () => {
   function handleCreateSpecialty(e: FormEvent) {
     e.preventDefault();
 
-    api.post('especialidades', {
-      nomeEspecialidade: nome,
+    api.post('consultas', {
+      nome,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();

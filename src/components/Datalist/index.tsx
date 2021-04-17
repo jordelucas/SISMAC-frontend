@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 interface OptionsList {
   name: string;
-  id: number;
+  id: string;
 }
 
 interface DatalistProps {

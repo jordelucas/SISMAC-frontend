@@ -16,15 +16,12 @@ import {
   FormGroup, 
   Grid
 } from './styles';
+import { SpecialtyProps } from '../../../../../../Models/Specialty';
 
 interface LocationState {
   id: {
     pathname: string;
   };
-}
-
-interface SpecialtyProps {
-  nomeEspecialidade: string;
 }
 
 const NewVacanciesSpecialty: React.FC = () => {
@@ -40,10 +37,10 @@ const NewVacanciesSpecialty: React.FC = () => {
 
   useEffect(() => {
     api.get<SpecialtyProps>(
-      `especialidades/${id}`
+      `consultas/${id}`
     ).then((response) => {
       const { 
-        nomeEspecialidade: specialtyNome,
+        nome: specialtyNome,
        } = response.data;
 
        setNomeEspecialidade(specialtyNome)
@@ -53,16 +50,14 @@ const NewVacanciesSpecialty: React.FC = () => {
   function handleCreateVacancy(e: FormEvent) {
     e.preventDefault();
 
-    const vacancyDate = data.split('-').reverse().join('/')
+    const vacancyDate = data.split('-').join('/')
 
-    api.post('vagas', {
-      data: vacancyDate,
-      vagasOfertadas: vagas,
-      especialidade: id,
-      exame: null,
-      consulta: true,
-      medico: especialista,
-      lugar: local,
+    api.post('vagasConsultas', {
+      nomeEspecialista: especialista,
+      dataConsulta: vacancyDate,
+      quantidade: vagas,
+      local,
+      consulta_id: id,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();

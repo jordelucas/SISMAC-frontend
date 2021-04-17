@@ -18,26 +18,20 @@ import {
   FormGroup, 
   Grid } from './styles';
 import api from '../../../../services/api';
+import { SpecialtyProps } from '../../../../Models/Specialty';
 
 interface LocationState {
   id: {
     pathname: string;
   };
 }
-
-interface SpecialtyProps {
-  nomeEspecialidade: string;
-}
-
 interface VacanciesProps {
-  content: Details[];
-}
-
-interface Details {
   id: number,
-  data: string,
-  vagasOfertadas: number,
-  vagasRestantes: number,
+  dataConsulta: string,
+  quantidade: number,
+  disponivel: number,
+  local: string,
+  nomeEspecialista: string,
 }
 
 const Specialty: React.FC = () => {
@@ -46,16 +40,16 @@ const Specialty: React.FC = () => {
   const [isEditDisabled, setIsEditDisabled] = useState(true)
 
   const [nome, setNome] = useState('')
-  const [vacancies, setVacancies] = useState<Details[]>()
+  const [vacancies, setVacancies] = useState<VacanciesProps[]>()
   
   const { id } = specialtyId || { id: { pathname: "/" } };
 
   useEffect(() => {
     api.get<SpecialtyProps>(
-      `especialidades/${id}`
+      `consultas/${id}`
     ).then((response) => {
       const { 
-        nomeEspecialidade: specialtyNome,
+        nome: specialtyNome,
        } = response.data;
 
        setNome(specialtyNome)
@@ -63,17 +57,14 @@ const Specialty: React.FC = () => {
   }, [id])
 
   useEffect(() => {
-    api.get<VacanciesProps>(
-      `vagas?consulta=true&especialidade_id=${id}`
+    api.get<VacanciesProps[]>(
+      `consultas/${id}/vagas`
     ).then((response) => {
-      const { 
-        content: listVacancies
-      } = response.data;
-
-      const filteredVacancies = listVacancies.map(item => {
+      console.log(response.data);
+      const filteredVacancies = response.data.map(item => {
         return {
           ...item,
-          data: item.data.split('-').reverse().join('/')
+          dataConsulta: item.dataConsulta.split('T')[0].split('-').reverse().join('/')
         }
       })
 
@@ -88,8 +79,8 @@ const Specialty: React.FC = () => {
   function handleUpdateSpecialty(e: FormEvent) {
     e.preventDefault();
 
-    api.put(`especialidades/atualizarEspecialidade/${id}`, {
-      nomeEspecialidade: nome,
+    api.put(`consultas/${id}`, {
+      nome,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)
       alert('Cadastro atualizado com sucesso!')
@@ -148,8 +139,8 @@ const Specialty: React.FC = () => {
             <TableBody>
               {vacancies?.map(vacancy => (
                 <tr key={vacancy.id}>
-                  <td>{vacancy.data}</td>
-                  <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
+                  <td>{vacancy.dataConsulta}</td>
+                  <td>{`${vacancy.quantidade - vacancy.disponivel}/${vacancy.quantidade}`}</td>
                   <td>
                     <Link to={{
                       pathname: `/management/specialty/${id}/vacancy/${vacancy.id}`,
