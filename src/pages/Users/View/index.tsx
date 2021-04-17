@@ -24,19 +24,19 @@ interface LocationState {
   };
 }
 
-interface Patient {
-  content: Array<Details>
-}
+// interface Patient {
+//   content: Array<Details>
+// }
 
-interface Details {
+interface Patient {
   id: number;
-  nomePaciente: string;
-  carteiraSUS: string;
+  nome: string;
+  nsus: string;
   cpf: string;
   cidade: string;
   bairro: string;
   complemento: string;
-  dataNascimento: string;
+  dtNascimento: string;
   telefone: string;
   numero: string;
 }
@@ -79,18 +79,18 @@ const User: React.FC = () => {
     }).then((response) => {
       const { 
         id: identifier,
-        nomePaciente: patientNome,
+        nome: patientNome,
         cpf: patientCpf,
-        carteiraSUS: patientNsus,
-        dataNascimento,
+        nsus: patientNsus,
+        dtNascimento: dataNascimento,
         telefone: patientTelefone,
         cidade: patientCidade,
         bairro: patientBairro,
         numero: patientNumero,
         complemento: patientComplemento,
-       } = response.data.content[0];
+       } = response.data;
 
-       const patientDtNascimento = dataNascimento.split('/').reverse().join('-')
+       const patientDtNascimento = dataNascimento.split('T')[0]
 
        setIdentifier(identifier)
        setNome(patientNome)
@@ -105,18 +105,18 @@ const User: React.FC = () => {
     }) 
   }, [id])
 
-  useEffect(() => {
-    if (identifier !== undefined) {
-      api.get<SchedulesList>(
-        `agendamento/${identifier}`
-      ).then((response) => {
-        const result = response.data.content;
-        setSchedules(result);
-      }).catch(() => {
-        alert('Erro ao buscar agendamentos!')
-      })
-    }
-  }, [identifier])
+  // useEffect(() => {
+  //   if (identifier !== undefined) {
+  //     api.get<SchedulesList>(
+  //       `agendamento/${identifier}`
+  //     ).then((response) => {
+  //       const result = response.data.content;
+  //       setSchedules(result);
+  //     }).catch(() => {
+  //       alert('Erro ao buscar agendamentos!')
+  //     })
+  //   }
+  // }, [identifier])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
@@ -125,15 +125,15 @@ const User: React.FC = () => {
   function handleUpdateUser(e: FormEvent) {
     e.preventDefault();
 
-    api.put('pacientes/atualizarCadastro', {
-      nomePaciente: nome,
-      carteiraSUS: nsus,
+    api.put(`pacientes/${identifier}`, {
+      nome,
+      nsus,
       cpf,
       cidade,
       bairro,
       numero,
       complemento,
-      dataNascimento: dtNascimento,
+      dtNascimento: dtNascimento.split("-").join("/"),
       telefone,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)

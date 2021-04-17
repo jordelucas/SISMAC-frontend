@@ -13,6 +13,7 @@ import { Table, TableBody, TableHead } from '../../components/Table';
 import { ArrowForwardIcon } from './styles';
 
 interface Patient {
+  id: string;
   nome: string;
   nsus: string;
   cpf: string;
@@ -68,7 +69,7 @@ const Users: React.FC<Patient> = () => {
                     <td>{patient.nsus}</td>
                     <td>
                       <Link to={{
-                        pathname: `user/${index}`,
+                        pathname: `user/${patient.id}`,
                         state: {
                           id: patient.cpf
                         }

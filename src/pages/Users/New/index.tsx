@@ -32,14 +32,14 @@ const NewUser: React.FC = () => {
     e.preventDefault();
 
     api.post('pacientes', {
-      nome,
-      nsus,
       cpf,
+      nsus,
+      nome,
       cidade,
       bairro,
       numero,
       complemento,
-      dtNascimento,
+      dtNascimento: dtNascimento.split("-").join("/"),
       telefone,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
