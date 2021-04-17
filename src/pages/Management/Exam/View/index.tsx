@@ -26,19 +26,20 @@ interface LocationState {
 }
 
 interface ExamProps {
-  nomeExame: string;
+  nome: string;
   autorizacao: boolean;
 }
 
-interface VacanciesProps {
-  content: Details[];
-}
+// interface VacanciesProps {
+//   content: Details[];
+// }
 
-interface Details {
+interface VacanciesProps {
   id: number,
-  data: string,
-  vagasOfertadas: number,
-  vagasRestantes: number,
+  dataExame: string,
+  quantidade: number,
+  disponivel: number,
+  local: string,
 }
 
 const Exam: React.FC = () => {
@@ -46,7 +47,7 @@ const Exam: React.FC = () => {
 
   const [isEditDisabled, setIsEditDisabled] = useState(true)
   
-  const [vacancies, setVacancies] = useState<Details[]>()
+  const [vacancies, setVacancies] = useState<VacanciesProps[]>()
   const [nome, setNome] = useState('')
   const [authorization, setAuthorization] = useState(false)
   
@@ -57,7 +58,7 @@ const Exam: React.FC = () => {
       `exames/${id}`
     ).then((response) => {
       const { 
-        nomeExame: examNome,
+        nome: examNome,
         autorizacao: examAutorizacao,
        } = response.data;
 
@@ -67,17 +68,13 @@ const Exam: React.FC = () => {
   }, [id])
 
   useEffect(() => {
-    api.get<VacanciesProps>(
-      `vagas?consulta=false&exame_id=${id}`
+    api.get<VacanciesProps[]>(
+      `exames/${id}/vagas`
     ).then((response) => {
-      const { 
-        content: listVacancies
-      } = response.data;
-
-      const filteredVacancies = listVacancies.map(item => {
+      const filteredVacancies = response.data.map(item => {
         return {
           ...item,
-          data: item.data.split('-').reverse().join('/')
+          dataExame: item.dataExame.split('T')[0].split('-').reverse().join('/')
         }
       })
       
@@ -92,8 +89,8 @@ const Exam: React.FC = () => {
   function handleUpdateExam(e: FormEvent) {
     e.preventDefault();
 
-    api.put(`exames/editarExame/${id}`, {
-      nomeExame: nome,
+    api.put(`exames/${id}`, {
+      nome,
       autorizacao: authorization,
     }).then(() => {
       setIsEditDisabled(prevState => !prevState)
@@ -163,8 +160,8 @@ const Exam: React.FC = () => {
             <TableBody>
               {vacancies?.map(vacancy => (
                 <tr key={vacancy.id}>
-                  <td>{vacancy.data}</td>
-                  <td>{vacancy.vagasOfertadas - vacancy.vagasRestantes}/{vacancy.vagasOfertadas}</td>
+                  <td>{vacancy.dataExame}</td>
+                  <td>{vacancy.quantidade - vacancy.disponivel}/{vacancy.quantidade}</td>
                   <td>
                     <Link to={{
                       pathname: `/management/exam/${id}/vacancy/${vacancy.id}`,

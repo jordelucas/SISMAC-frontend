@@ -23,7 +23,7 @@ const NewExam: React.FC = () => {
     e.preventDefault();
 
     api.post('exames', {
-      nomeExame: nome,
+      nome,
       autorizacao: authorization,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')

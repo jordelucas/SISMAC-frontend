@@ -11,7 +11,7 @@ import { ArrowForwardIcon } from './styles';
 
 interface ExamsProps {
   id: number;
-  nomeExame: string
+  nome: string
 }
 
 const Exams: React.FC = () => {
@@ -20,7 +20,7 @@ const Exams: React.FC = () => {
   useEffect(() => {
     async function loadAllExams() {
       const response = await api.get('exames');
-      setExams(response.data.content)
+      setExams(response.data)
     }
 
     loadAllExams();
@@ -49,7 +49,7 @@ const Exams: React.FC = () => {
                 return (
                   <tr key={exam.id}>
                     <td style={{ width: '100%' }}>
-                      {exam.nomeExame}
+                      {exam.nome}
                     </td>
                     <td>
                       <Link to={{

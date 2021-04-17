@@ -24,7 +24,7 @@ interface LocationState {
 }
 
 interface ExamProps {
-  nomeExame: string;
+  nome: string;
 }
 
 const NewVacanciesExam: React.FC = () => {
@@ -42,7 +42,7 @@ const NewVacanciesExam: React.FC = () => {
       `exames/${id}`
     ).then((response) => {
       const { 
-        nomeExame: examNome,
+        nome: examNome,
        } = response.data;
 
        setNomeExame(examNome)
@@ -52,16 +52,13 @@ const NewVacanciesExam: React.FC = () => {
   function handleCreateVacancy(e: FormEvent) {
     e.preventDefault();
 
-    const vacancyDate = data.split('-').reverse().join('/')
+    const vacancyDate = data.split("-").join("/")
 
-    api.post('vagas', {
-      data: vacancyDate,
-      vagasOfertadas: vagas,
-      especialidade: null,
-      exame: id,
-      consulta: false,
-      medico: "",
-      lugar: local,
+    api.post('vagasExames', {
+      dataExame: vacancyDate,
+      quantidade: vagas,
+      local,
+      exame_id: id,
     }).then(() => {
       alert('Cadastro realizado com sucesso!')
       clearStates();
