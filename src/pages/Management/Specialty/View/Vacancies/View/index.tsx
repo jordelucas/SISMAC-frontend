@@ -7,85 +7,29 @@ import Title from '../../../../../../components/Title';
 import { useLocation } from 'react-router-dom';
 import api from '../../../../../../services/api';
 import { Table, TableBody, TableHead } from '../../../../../../components/Table';
-import { Patient } from '../../../../../../Models/Patient';
+import { PacienteAgendadoProps } from '../../../../../../Models/PacienteAgendado';
+import { AgendamentosProps } from '../../../../../../Models/Agendamentos';
 
 interface LocationState {
   vacancyID: number;
   specialityID: number;
 }
 
-interface SpecialtyProps {
-  nomeEspecialidade: string;
-}
-
-interface VacanciesProps {
-  content: Details[];
-}
-
-interface Details {
-  id: number,
-  data: string,
-  vagasOfertadas: number,
-  vagasRestantes: number,
-}
-
 const ViewPatientsSpecialty: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
-  const [nomeEspecialidade, setNomeEspecialidade] = useState('')
-  const [vacancy, setVacancy] = useState<Details>()
-  const [idsSolicitantes, setIdsSolicitantes] = useState<number[]>([])
-  const [solicitantes, setSolicitantes] = useState<(Patient | undefined)[]>([])
-  
+  const [nomeConsulta, setNomeConsulta] = useState('')
+  const [dataConsulta, setDataConsulta] = useState('')
+  const [pacientes, setPacientes] = useState<(PacienteAgendadoProps[])>([])
+    
   useEffect(() => {
-    api.get<SpecialtyProps>(
-      `especialidades/${ids.specialityID}`
+    api.get<AgendamentosProps>(
+      `/vagasConsultas/${ids.vacancyID}/agendamentos`
     ).then((response) => {
-      const { 
-        nomeEspecialidade: specialtyNome,
-       } = response.data;
-
-       setNomeEspecialidade(specialtyNome);
-    }) 
-  }, [ids.specialityID]);
-
-  useEffect(() => {
-    api.get(
-      `agendamento/vaga/${ids.vacancyID}`
-    ).then((response) => {
-      setIdsSolicitantes(response.data);
+      setNomeConsulta(response.data.nome);
+      setDataConsulta(response.data.data.split('T')[0].split('-').reverse().join('/'));
+      setPacientes(response.data.pacientesAgendados);
     }) 
   }, [ids.vacancyID]);
-
-  useEffect(() => {
-    api.get<VacanciesProps>(
-      `vagas?consulta=true&especialidade_id=${ids.specialityID}`
-    ).then((response) => {
-      const { 
-        content: listVacancies
-      } = response.data;
-
-      const filteredVacancies = listVacancies.map(item => {
-        return {
-          ...item,
-          data: item.data.split('-').reverse().join('/')
-        }
-      })
-
-      const result = filteredVacancies.find(vacancy =>
-        vacancy.id === ids.vacancyID
-      );
-      setVacancy(result)
-    }) 
-  }, [ids.specialityID, ids.vacancyID]);
-
-  useEffect(() => {
-    api.get<Patient[]>('pacientes').then((response) => {
-      const patiensts = response.data;
-      const solicitantes = idsSolicitantes.map(solicitante => patiensts.find(patient => patient.id === solicitante));
-      
-      setSolicitantes(solicitantes);
-    });
-  }, [idsSolicitantes]);
 
   return (
     <Content>
@@ -93,7 +37,7 @@ const ViewPatientsSpecialty: React.FC = () => {
         <>
           <BackButton link={`/management/specialties`}/>
           
-          <Title text={`Agendamentos - ${nomeEspecialidade} - ${vacancy?.data}`} />
+          <Title text={`Agendamentos - ${nomeConsulta} - ${dataConsulta}`} />
 
           <Table>
             <TableHead>
@@ -104,13 +48,13 @@ const ViewPatientsSpecialty: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {solicitantes
-                ? solicitantes.map((patient: Patient | undefined, index) => {
+              {pacientes
+                ? pacientes.map((solicitante: PacienteAgendadoProps) => {
                   return (
-                    <tr key={index}>
-                      <td>{patient?.nome}</td>
-                      <td>{patient?.cpf}</td>
-                      <td>{patient?.nsus}</td>
+                    <tr key={solicitante.id}>
+                      <td>{solicitante.paciente.nome}</td>
+                      <td>{solicitante.paciente.cpf}</td>
+                      <td>{solicitante.paciente.nsus}</td>
                     </tr>
                   )
                 }) : null

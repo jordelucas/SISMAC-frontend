@@ -60,7 +60,6 @@ const Specialty: React.FC = () => {
     api.get<VacanciesProps[]>(
       `consultas/${id}/vagas`
     ).then((response) => {
-      console.log(response.data);
       const filteredVacancies = response.data.map(item => {
         return {
           ...item,

@@ -7,38 +7,26 @@ import Title from '../../../../../../components/Title';
 import { useLocation } from 'react-router-dom';
 import api from '../../../../../../services/api';
 import { Table, TableBody, TableHead } from '../../../../../../components/Table';
-import { Patient } from '../../../../../../Models/Patient';
-import { ExamProps } from '../../../../../../Models/Exam';
+import { PacienteAgendadoProps } from '../../../../../../Models/PacienteAgendado';
+import { AgendamentosProps } from '../../../../../../Models/Agendamentos';
 
 interface LocationState {
   vacancyID: number;
   examID: number;
 }
 
-interface AgendamentosProps {
-  nomeExame: string,
-  dataExame: string,
-  pacientesAgendados: Array<PacientesAgendadosProps>
-}
-
-interface PacientesAgendadosProps {
-  id: string,
-  vaga_id: string,
-  paciente: Patient,
-}
-
 const ViewPatientsExam: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
   const [nomeExame, setNomeExame] = useState('')
   const [dataExame, setDataExame] = useState('')
-  const [pacientes, setPacientes] = useState<(PacientesAgendadosProps[])>([])
+  const [pacientes, setPacientes] = useState<(PacienteAgendadoProps[])>([])
   
   useEffect(() => {
     api.get<AgendamentosProps>(
       `/vagasExames/${ids.vacancyID}/agendamentos`
     ).then((response) => {
-      setNomeExame(response.data.nomeExame);
-      setDataExame(response.data.dataExame.split('T')[0].split('-').reverse().join('/'));
+      setNomeExame(response.data.nome);
+      setDataExame(response.data.data.split('T')[0].split('-').reverse().join('/'));
       setPacientes(response.data.pacientesAgendados);
     }) 
   }, [ids.vacancyID]);
@@ -61,7 +49,7 @@ const ViewPatientsExam: React.FC = () => {
             </TableHead>
             <TableBody>
               {pacientes
-                ? pacientes.map((solicitante: PacientesAgendadosProps) => {
+                ? pacientes.map((solicitante: PacienteAgendadoProps) => {
                   return (
                     <tr key={solicitante.id}>
                       <td>{solicitante.paciente.nome}</td>
