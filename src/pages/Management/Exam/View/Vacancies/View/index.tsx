@@ -15,74 +15,33 @@ interface LocationState {
   examID: number;
 }
 
-interface VacanciesProps {
-  content: Details[];
+interface AgendamentosProps {
+  nomeExame: string,
+  dataExame: string,
+  pacientesAgendados: Array<PacientesAgendadosProps>
 }
 
-interface Details {
-  id: number,
-  data: string,
-  vagasOfertadas: number,
-  vagasRestantes: number,
+interface PacientesAgendadosProps {
+  id: string,
+  vaga_id: string,
+  paciente: Patient,
 }
 
 const ViewPatientsExam: React.FC = () => {
   const { state: ids } = useLocation<LocationState>();
   const [nomeExame, setNomeExame] = useState('')
-  const [vacancy, setVacancy] = useState<Details>()
-  const [idsSolicitantes, setIdsSolicitantes] = useState<number[]>([])
-  const [solicitantes, setSolicitantes] = useState<(Patient | undefined)[]>([])
+  const [dataExame, setDataExame] = useState('')
+  const [pacientes, setPacientes] = useState<(PacientesAgendadosProps[])>([])
   
   useEffect(() => {
-    api.get<ExamProps>(
-      `exames/${ids.examID}`
+    api.get<AgendamentosProps>(
+      `/vagasExames/${ids.vacancyID}/agendamentos`
     ).then((response) => {
-      const { 
-        nome: examNome,
-       } = response.data;
-
-       setNomeExame(examNome);
-    }) 
-  }, [ids.examID]);
-
-  useEffect(() => {
-    api.get(
-      `agendamento/vaga/${ids.vacancyID}`
-    ).then((response) => {
-      setIdsSolicitantes(response.data);
+      setNomeExame(response.data.nomeExame);
+      setDataExame(response.data.dataExame.split('T')[0].split('-').reverse().join('/'));
+      setPacientes(response.data.pacientesAgendados);
     }) 
   }, [ids.vacancyID]);
-
-  useEffect(() => {
-    api.get<VacanciesProps>(
-      `vagas?consulta=false&especialidade_id=${ids.examID}`
-    ).then((response) => {
-      const { 
-        content: listVacancies
-      } = response.data;
-
-      const filteredVacancies = listVacancies.map(item => {
-        return {
-          ...item,
-          data: item.data.split('-').reverse().join('/')
-        }
-      })
-
-      const result = filteredVacancies.find(vacancy =>
-        vacancy.id === ids.vacancyID
-      );
-      setVacancy(result)
-    }) 
-  }, [ids.examID, ids.vacancyID]);
-
-  useEffect(() => {
-    api.get<Patient[]>('pacientes').then((response) => {
-      const patiensts = response.data;
-      const solicitantes = idsSolicitantes.map(solicitante => patiensts.find(patient => patient.id === solicitante));
-      
-      setSolicitantes(solicitantes);
-    });
-  }, [idsSolicitantes]);
 
   return (
     <Content>
@@ -90,7 +49,7 @@ const ViewPatientsExam: React.FC = () => {
         <>
           <BackButton link={`/management/exams`}/>
           
-          <Title text={`Agendamentos - ${nomeExame} - ${vacancy?.data}`} />
+          <Title text={`Agendamentos - ${nomeExame} - ${dataExame}`} />
 
           <Table>
             <TableHead>
@@ -101,13 +60,13 @@ const ViewPatientsExam: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {solicitantes
-                ? solicitantes.map((patient: Patient | undefined, index) => {
+              {pacientes
+                ? pacientes.map((solicitante: PacientesAgendadosProps) => {
                   return (
-                    <tr key={index}>
-                      <td>{patient?.nome}</td>
-                      <td>{patient?.cpf}</td>
-                      <td>{patient?.nsus}</td>
+                    <tr key={solicitante.id}>
+                      <td>{solicitante.paciente.nome}</td>
+                      <td>{solicitante.paciente.cpf}</td>
+                      <td>{solicitante.paciente.nsus}</td>
                     </tr>
                   )
                 }) : null
