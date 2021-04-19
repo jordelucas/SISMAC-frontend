@@ -36,6 +36,27 @@ interface Schedules {
   nomeEspecialidade: string,
 }
 
+interface Agendamentos {
+  id: string,
+  paciente_id: string,
+  type: "exame" | "consulta",
+  vaga_id: string,
+}
+
+interface VagaExame {
+  id: string,
+  dataExame: string,
+  local: string,
+  nomeExame: string,
+}
+
+interface VagaConsulta {
+  id: string,
+  dataConsulta: string,
+  local: string,
+  nomeConsulta: string,
+}
+
 const User: React.FC = () => {
   const { state: patientId } = useLocation<LocationState>();
 
@@ -51,7 +72,10 @@ const User: React.FC = () => {
   const [bairro, setBairro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
-  const [schedules, setSchedules] = useState<Schedules[]>()
+
+  const [schedules, setSchedules] = useState<Agendamentos[]>([])
+  const [examSchedules, setExamSchedules] = useState<VagaExame[]>([])
+  const [consultationSchedules, setConsultationSchedules] = useState<VagaConsulta[]>([])
   
   const { id } = patientId || { id: { pathname: "/" } };
 
@@ -89,18 +113,44 @@ const User: React.FC = () => {
     }) 
   }, [id])
 
-  // useEffect(() => {
-  //   if (identifier !== undefined) {
-  //     api.get<SchedulesList>(
-  //       `agendamento/${identifier}`
-  //     ).then((response) => {
-  //       const result = response.data.content;
-  //       setSchedules(result);
-  //     }).catch(() => {
-  //       alert('Erro ao buscar agendamentos!')
-  //     })
-  //   }
-  // }, [identifier])
+  useEffect(() => {
+    if (identifier !== undefined) {
+      api.get<Agendamentos[]>(
+        `pacientes/${identifier}/agendamentos/`
+      ).then((response) => {
+        setSchedules(response.data);
+      }).catch(() => {
+        alert('Erro ao buscar agendamentos!')
+      })
+    }
+  }, [identifier]);
+
+  useEffect(() => {
+    if (schedules.length > 0) {
+      const exames = schedules.filter((item) => item.type === "exame")
+      const consultas = schedules.filter((item) => item.type === "consulta")
+
+      for (const exame of exames) {
+        api.get<VagaExame>(
+          `vagasExames/${exame.vaga_id}/`
+        ).then((response) => {
+          setExamSchedules(oldArray => [...oldArray, response.data]);
+        }).catch(() => {
+          alert('Erro ao buscar agendamentos de exames!')
+        })
+      }
+
+      for (const consulta of consultas) {
+        api.get<VagaConsulta>(
+          `vagasConsultas/${consulta.vaga_id}/`
+        ).then((response) => {
+          setConsultationSchedules(oldArray => [...oldArray, response.data]);
+        }).catch(() => {
+          alert('Erro ao buscar agendamentos de consultas!')
+        })
+      }
+    }
+  }, [schedules])
 
   function changeDisable() {
     setIsEditDisabled(prevState => !prevState)
@@ -234,24 +284,29 @@ const User: React.FC = () => {
             <TableHead>
               <tr>
                 <th>SOLICITAÇÃO</th>
-                <th>ESPECIALIDADE</th>
                 <th>DATA</th>
+                <th>LOCAL</th>
                 <th>STATUS</th>
               </tr>
             </TableHead>
             <TableBody>
-              {schedules?.map(scheduling => {
+              {examSchedules?.map(exam => {
                 return (
                   <tr>
-                    <td>{scheduling.id}</td>
-                    <td>
-                      {scheduling.nomeEspecialidade 
-                        ? scheduling.nomeEspecialidade 
-                        : scheduling.nomeExame
-                      }
-                    </td>
-                    <td>{scheduling.dataAgendamento}</td>
-                    <td>Marcado</td>
+                    <td>Exame</td>
+                    <td>{exam.dataExame.split('T')[0].split('-').reverse().join('/')}</td>
+                    <td>{exam.local}</td>
+                    <td>Agendado</td>
+                  </tr>
+                )
+              })}
+              {consultationSchedules?.map(consultation => {
+                return (
+                  <tr>
+                    <td>Especialidade</td>
+                    <td>{consultation.dataConsulta.split('T')[0].split('-').reverse().join('/')}</td>
+                    <td>{consultation.local}</td>
+                    <td>Agendado</td>
                   </tr>
                 )
               })}
