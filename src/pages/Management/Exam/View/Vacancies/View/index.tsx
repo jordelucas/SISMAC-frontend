@@ -37,7 +37,8 @@ const ViewPatientsExam: React.FC = () => {
         <>
           <BackButton link={`/management/exams`}/>
           
-          <Title text={`Agendamentos - ${nomeExame} - ${dataExame}`} />
+          <Title text={`Agendamentos`} />
+          <Title text={`${nomeExame} - ${dataExame}`} size="2" uppercase />
 
           <Table>
             <TableHead>
