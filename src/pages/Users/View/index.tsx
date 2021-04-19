@@ -293,7 +293,7 @@ const User: React.FC = () => {
               {examSchedules?.map(exam => {
                 return (
                   <tr>
-                    <td>Exame</td>
+                    <td>{exam.nomeExame}</td>
                     <td>{exam.dataExame.split('T')[0].split('-').reverse().join('/')}</td>
                     <td>{exam.local}</td>
                     <td>Agendado</td>
@@ -303,7 +303,7 @@ const User: React.FC = () => {
               {consultationSchedules?.map(consultation => {
                 return (
                   <tr>
-                    <td>Especialidade</td>
+                    <td>{consultation.nomeConsulta}</td>
                     <td>{consultation.dataConsulta.split('T')[0].split('-').reverse().join('/')}</td>
                     <td>{consultation.local}</td>
                     <td>Agendado</td>

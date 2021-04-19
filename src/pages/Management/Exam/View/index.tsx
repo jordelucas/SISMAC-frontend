@@ -145,7 +145,7 @@ const Exam: React.FC = () => {
             <TableHead>
               <tr>
                 <th>DATA</th>
-                <th>VAGAS</th>
+                <th>OCUPADA/TOTAL</th>
                 <th></th>
               </tr>
             </TableHead>
